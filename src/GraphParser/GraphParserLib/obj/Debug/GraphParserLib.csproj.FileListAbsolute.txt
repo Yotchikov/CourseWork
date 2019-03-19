@@ -1,0 +1,6 @@
+C:\Users\books\Projects\CourseWork\src\GraphParser\GraphParserLib\bin\Debug\GraphParserLib.dll
+C:\Users\books\Projects\CourseWork\src\GraphParser\GraphParserLib\bin\Debug\GraphParserLib.pdb
+C:\Users\books\Projects\CourseWork\src\GraphParser\GraphParserLib\obj\Debug\GraphParserLib.csprojAssemblyReference.cache
+C:\Users\books\Projects\CourseWork\src\GraphParser\GraphParserLib\obj\Debug\GraphParserLib.csproj.CoreCompileInputs.cache
+C:\Users\books\Projects\CourseWork\src\GraphParser\GraphParserLib\obj\Debug\GraphParserLib.dll
+C:\Users\books\Projects\CourseWork\src\GraphParser\GraphParserLib\obj\Debug\GraphParserLib.pdb

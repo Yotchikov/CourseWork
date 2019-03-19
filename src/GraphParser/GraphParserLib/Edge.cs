@@ -6,19 +6,17 @@ using System.Threading.Tasks;
 
 namespace GraphParserLib
 {
-    public class Node
+    public class Edge
     {
+        private Node first;
+        private Node second;
         private string style;
-        private List<Edge> edges;
 
-        public Node(string attributes)
+        public Edge(Node first, Node second, string attributes)
         {
+            this.first = first;
+            this.second = second;
             this.style = attributes;
-        }
-
-        public void AddNeighbour(Node second, string attributes)
-        {
-            edges.Add(new Edge(this, second, attributes));
         }
     }
 }
