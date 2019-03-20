@@ -26,32 +26,75 @@ namespace GraphParserLib
             // Deleting type of graph
             text = text.Substring(oriented ? 7 : 5);
 
+            // Parsing graph code
+            Parse(text);
+
+        }
+
+        private void Parse(string code)
+        {
             // Reading file
             int i = 0;
             string stage = "Name";
 
-            if (text[i] != ' ')
+            if (code[i] != ' ')
                 throw new ArgumentException("Must be space between graph type and graph name");
-            while (i != text.Length)
+
+            while (i != code.Length)
             {
-                if (text[i] == ' ')
+                if (code[i] == ' ' || code[i] == '\n')
                 {
                     ++i;
                     continue;
                 }
 
-                if (stage == "Name")
+                switch (stage)
                 {
-                    while (i != text.Length && text[i] != ' ')
-                    {
-                        if (!Char.IsLetterOrDigit(text[i]))
-                            throw new ArgumentException("Illegal name!");
-                        name += text[i++];
-                    }
-                    stage = "Open";
+                    case "Name":
+                        while (i != code.Length && code[i] != ' ' && code[i] != '{' && code[i] != '\n') ;
+                        {
+                            if (!Char.IsLetterOrDigit(code[i]))
+                                throw new ArgumentException("Illegal name");
+                            name += code[i++];
+                        }
+                        stage = "Open";
+                        break;
+
+                    case "Open":
+                        if (code[i] != '{')
+                            throw new ArgumentException("Missed be '{'");
+                        stage = "Declaration";
+                        ++i;
+                        break;
+
+                    case "Declaration":
+                        string nodeName = String.Empty;
+                        while (i != code.Length && code[i] != ' ' && code[i] != '-' && code[i] != ';' && code[i] != '\n' && code[i] != '[')
+                        {
+                            if (!Char.IsLetterOrDigit(code[i]))
+                                throw new ArgumentException("Node name contains non alphanumeric character");
+                            nodeName += code[i];
+                            ++i;
+                        }
+                        switch (code[i])
+                        {
+                            case '-':
+                                stage = "DeclarationOfEdge";
+                                ++i;
+                                break;
+                            case ';':
+                                nodes.Add(new Node(name));
+                                ++i;
+                                break;
+                            case '\n':
+                                stage = "StyleOfNode";
+                                ++i;
+                                break;
+                        }
+
+                        break;
                 }
             }
-
         }
 
         public override string ToString()

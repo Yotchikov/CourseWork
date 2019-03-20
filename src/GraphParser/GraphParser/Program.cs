@@ -11,7 +11,7 @@ namespace GraphParser
     {
         static void Main(string[] args)
         {
-            Graph g = new Graph("digraph hello");
+            Graph g = new Graph("digraph hello {");
             Console.WriteLine(g.ToString());
         }
     }
