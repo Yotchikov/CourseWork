@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Windows.Forms;
 using Microsoft.Office.Tools.Ribbon;
 
 namespace VisioAddIn
@@ -15,7 +17,11 @@ namespace VisioAddIn
 
         private void openFileButton_Click(object sender, RibbonControlEventArgs e)
         {
-            Globals.ThisAddIn.ShowGraph("");
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string input = File.ReadAllText(openFileDialog.FileName);
+                Globals.ThisAddIn.ShowGraph(input);
+            }
         }
     }
 }

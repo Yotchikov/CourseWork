@@ -35,9 +35,9 @@
         private void InitializeComponent()
         {
             this.tab1 = this.Factory.CreateRibbonTab();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.openFileButton = this.Factory.CreateRibbonButton();
             this.group = this.Factory.CreateRibbonGroup();
+            this.openFileButton = this.Factory.CreateRibbonButton();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tab1.SuspendLayout();
             this.group.SuspendLayout();
             this.SuspendLayout();
@@ -49,9 +49,10 @@
             this.tab1.Label = "Импорт графа";
             this.tab1.Name = "tab1";
             // 
-            // openFileDialog1
+            // group
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.group.Items.Add(this.openFileButton);
+            this.group.Name = "group";
             // 
             // openFileButton
             // 
@@ -59,10 +60,9 @@
             this.openFileButton.Name = "openFileButton";
             this.openFileButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.openFileButton_Click);
             // 
-            // group
+            // openFileDialog
             // 
-            this.group.Items.Add(this.openFileButton);
-            this.group.Name = "group";
+            this.openFileDialog.FileName = "openFileDialog";
             // 
             // Ribbon
             // 
@@ -81,7 +81,7 @@
         #endregion
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton openFileButton;
     }
