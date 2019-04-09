@@ -38,6 +38,7 @@
             this.group = this.Factory.CreateRibbonGroup();
             this.openFileButton = this.Factory.CreateRibbonButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.removeGraphButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +53,7 @@
             // group
             // 
             this.group.Items.Add(this.openFileButton);
+            this.group.Items.Add(this.removeGraphButton);
             this.group.Name = "group";
             // 
             // openFileButton
@@ -63,6 +65,12 @@
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // removeGraphButton
+            // 
+            this.removeGraphButton.Label = "Удалить граф";
+            this.removeGraphButton.Name = "removeGraphButton";
+            this.removeGraphButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.removeGraphButton_Click);
             // 
             // Ribbon
             // 
@@ -84,6 +92,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton openFileButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton removeGraphButton;
     }
 
     partial class ThisRibbonCollection

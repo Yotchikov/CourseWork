@@ -23,5 +23,10 @@ namespace VisioAddIn
                 Globals.ThisAddIn.ShowGraph(input);
             }
         }
+
+        private void removeGraphButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.RemoveGraph();
+        }
     }
 }

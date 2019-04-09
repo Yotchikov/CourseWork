@@ -17,7 +17,6 @@ namespace GraphLibrary
     {
         private GraphParser gParser = new GraphParser();
         private DotGraph<string> graph;
-
         private Dictionary<string, Visio.Shape> vertices = new Dictionary<string, Visio.Shape>();
 
         public VisioGraph(string input)
@@ -46,6 +45,21 @@ namespace GraphLibrary
                 var edge = graph.VerticesEdges.ElementAt(i);
 
                 vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown);
+            }
+        }
+
+        public void RemoveGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
+        {
+            for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
+            {
+                var edge = graph.VerticesEdges.ElementAt(i);
+                vertices[edge.Source.Id].Disconnect(Visio.VisConnectorEnds.visConnectorBothEnds, 0, 0, Visio.VisUnitCodes.visAcre);
+            }
+
+            for (int i = 0; i < graph.AllVertices.Count(); ++i)
+            {
+                var node = graph.AllVertices.ElementAt(i);
+                vertices[node.Id].Delete();
             }
         }
 

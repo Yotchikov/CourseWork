@@ -12,6 +12,8 @@ namespace VisioAddIn
 {
     public partial class ThisAddIn
     {
+        private VisioGraph graph;
+
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
         }
@@ -22,14 +24,19 @@ namespace VisioAddIn
         
         public void ShowGraph(string input)
         {
-
             Visio.Documents visioDocs = this.Application.Documents;
-            Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss",
-                (short)Microsoft.Office.Interop.Visio.VisOpenSaveArgs.visOpenDocked);
             Visio.Page visioPage = this.Application.ActivePage;
 
-            VisioGraph graph = new VisioGraph(input);
+            graph = new VisioGraph(input);
             graph.PresentGraphInVisio(visioDocs, visioPage);
+        }
+
+        public void RemoveGraph()
+        {
+            Visio.Documents visioDocs = this.Application.Documents;
+            Visio.Page visioPage = this.Application.ActivePage;
+
+            graph.RemoveGraphInVisio(visioDocs, visioPage);
         }
 
         #region Код, автоматически созданный VSTO
