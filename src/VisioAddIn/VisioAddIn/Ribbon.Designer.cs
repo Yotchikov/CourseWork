@@ -37,8 +37,8 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group = this.Factory.CreateRibbonGroup();
             this.openFileButton = this.Factory.CreateRibbonButton();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.removeGraphButton = this.Factory.CreateRibbonButton();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tab1.SuspendLayout();
             this.group.SuspendLayout();
             this.SuspendLayout();
@@ -62,15 +62,16 @@
             this.openFileButton.Name = "openFileButton";
             this.openFileButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.openFileButton_Click);
             // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog";
-            // 
             // removeGraphButton
             // 
+            this.removeGraphButton.Enabled = false;
             this.removeGraphButton.Label = "Удалить граф";
             this.removeGraphButton.Name = "removeGraphButton";
             this.removeGraphButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.removeGraphButton_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
             // 
             // Ribbon
             // 
