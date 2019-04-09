@@ -10,13 +10,15 @@ using Office = Microsoft.Office.Core;
 
 namespace GraphLibrary
 {
+    /// <summary>
+    /// Класс, объединяющий библиотеку Graphviz4Net и объектную модель Visio
+    /// </summary>
     public class VisioGraph
     {
         private GraphParser gParser = new GraphParser();
         private DotGraph<string> graph;
-        
-        private List<Visio.Shape> vertices = new List<Visio.Shape>();
-        private List<Visio.Shape> edges = new List<Visio.Shape>();
+
+        private Dictionary<string, Visio.Shape> vertices = new Dictionary<string, Visio.Shape>();
 
         public VisioGraph(string input)
         {
@@ -25,15 +27,25 @@ namespace GraphLibrary
 
         public void PresentGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
         {
-            Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss",
-                (short)Microsoft.Office.Interop.Visio.VisOpenSaveArgs.visOpenDocked);
+            Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
             Dictionary<string, Visio.Master> visioMasters = getMasterShapes(visioStencil);
 
             for (int i = 0; i < graph.AllVertices.Count(); ++i)
             {
-                string shape = graph.AllVertices.ElementAt(i).Attributes["shape"];
-                vertices.Add(visioPage.Drop(visioMasters[shape.ToUpper()], i, 11 - i));
-                vertices[i].Text = graph.AllVertices.ElementAt(i).Id;
+                var node = graph.AllVertices.ElementAt(i);
+
+                string shape = graph.AllVertices.ElementAt(i).Attributes.ContainsKey("shape") ? node.Attributes["shape"] : "ELLIPSE";
+                string label = graph.AllVertices.ElementAt(i).Attributes.ContainsKey("label") ? node.Attributes["label"] : node.Id;
+
+                vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], i, 11 - i));
+                vertices[node.Id].Text = label;
+            }
+
+            for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
+            {
+                var edge = graph.VerticesEdges.ElementAt(i);
+
+                vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown);
             }
         }
 
@@ -47,6 +59,7 @@ namespace GraphLibrary
             result.Add("OCTAGON", visioStencil.Masters.get_ItemU(@"Octagon"));
             result.Add("RECTANGLE", visioStencil.Masters.get_ItemU(@"Rectangle"));
             result.Add("CIRCLE", visioStencil.Masters.get_ItemU(@"Circle"));
+            result.Add("ELLIPSE", visioStencil.Masters.get_ItemU(@"Ellipse"));
             result.Add("DIAMOND", visioStencil.Masters.get_ItemU(@"Diamond"));
             return result;
         }
