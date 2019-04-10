@@ -35,31 +35,26 @@ namespace GraphLibrary
 
                 string shape = graph.AllVertices.ElementAt(i).Attributes.ContainsKey("shape") ? node.Attributes["shape"] : "ELLIPSE";
                 string label = graph.AllVertices.ElementAt(i).Attributes.ContainsKey("label") ? node.Attributes["label"] : node.Id;
-
-                vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], i, 11 - i));
+                
+                vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], 1+i/2.0, 11 - i/2.0));
                 vertices[node.Id].Text = label;
+                vertices[node.Id].Resize(Visio.VisResizeDirection.visResizeDirNW, -0.7, Visio.VisUnitCodes.visInches);
             }
 
             for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
             {
                 var edge = graph.VerticesEdges.ElementAt(i);
-
                 vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown);
             }
         }
 
         public void RemoveGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
         {
-            for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
-            {
-                var edge = graph.VerticesEdges.ElementAt(i);
-                vertices[edge.Source.Id].Disconnect(Visio.VisConnectorEnds.visConnectorBothEnds, 0, 0, Visio.VisUnitCodes.visAcre);
-            }
-
             for (int i = 0; i < graph.AllVertices.Count(); ++i)
             {
                 var node = graph.AllVertices.ElementAt(i);
-                vertices[node.Id].Delete();
+                if (vertices.ContainsKey(node.Id))
+                    vertices[node.Id].DeleteEx(1);
             }
         }
 

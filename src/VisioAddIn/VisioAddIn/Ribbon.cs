@@ -20,13 +20,28 @@ namespace VisioAddIn
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string input = File.ReadAllText(openFileDialog.FileName);
-                Globals.ThisAddIn.ShowGraph(input);
+                try
+                {
+                    Globals.ThisAddIn.ShowGraph(input);
+                    removeGraphButton.Enabled = true;
+                }
+                catch (Exception exc)
+                {
+                    string message = exc.Message;
+                    string caption = "Не удалось отобразить граф";
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    DialogResult result;
+
+                    // Displays the MessageBox.
+                    result = MessageBox.Show(message, caption, buttons);
+                }
             }
         }
 
         private void removeGraphButton_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.RemoveGraph();
+            removeGraphButton.Enabled = false;
         }
     }
 }
