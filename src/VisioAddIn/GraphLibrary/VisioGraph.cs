@@ -37,6 +37,12 @@ namespace GraphLibrary
         {
             Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
             Visio.Document visioConnectors = visioDocs.OpenEx("Basic Flowchart Shapes (US units).vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
+
+            // Мастер-объект коннектора
+            Visio.Shape connector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
+            connector.get_Cells("EndArrow").Formula = "=5";
+            connector.get_Cells("ConLineRouteExt").FormulaU = "2";
+
             Dictionary<string, Visio.Master> visioMasters = getMasterShapes(visioStencil);
 
             for (int i = 0; i < graph.AllVertices.Count(); ++i)
@@ -54,11 +60,10 @@ namespace GraphLibrary
             for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
             {
                 var edge = graph.VerticesEdges.ElementAt(i);
-                Visio.Shape connector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
-                connector.get_Cells("EndArrow").Formula = "=5";
-                // connector.get_Cells()
                 vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
             }
+
+            connector.Delete();
         }
 
         /// <summary>
