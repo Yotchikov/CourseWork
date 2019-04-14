@@ -19,14 +19,24 @@ namespace GraphLibrary
         private DotGraph<string> graph;
         private Dictionary<string, Visio.Shape> vertices = new Dictionary<string, Visio.Shape>();
 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        /// <param name="input">Код графа</param>
         public VisioGraph(string input)
         {
             graph = gParser.ParseGraphData(input);
         }
 
+        /// <summary>
+        /// Процедура отображения графа в документе Visio
+        /// </summary>
+        /// <param name="visioDocs">Документы Visio</param>
+        /// <param name="visioPage">Текущая страница в Visio</param>
         public void PresentGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
         {
             Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
+            Visio.Document visioConnectors = visioDocs.OpenEx("Basic Flowchart Shapes (US units).vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
             Dictionary<string, Visio.Master> visioMasters = getMasterShapes(visioStencil);
 
             for (int i = 0; i < graph.AllVertices.Count(); ++i)
@@ -44,10 +54,18 @@ namespace GraphLibrary
             for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
             {
                 var edge = graph.VerticesEdges.ElementAt(i);
-                vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown);
+                Visio.Shape connector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
+                connector.get_Cells("EndArrow").Formula = "=5";
+                // connector.get_Cells()
+                vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
             }
         }
 
+        /// <summary>
+        /// Процедура удаления графа в документе Visio
+        /// </summary>
+        /// <param name="visioDocs">Документы Visio</param>
+        /// <param name="visioPage">Текущая страница Visio</param>
         public void RemoveGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
         {
             for (int i = 0; i < graph.AllVertices.Count(); ++i)
@@ -67,6 +85,8 @@ namespace GraphLibrary
             result.Add("HEXAGON", visioStencil.Masters.get_ItemU(@"Hexagon"));
             result.Add("OCTAGON", visioStencil.Masters.get_ItemU(@"Octagon"));
             result.Add("RECTANGLE", visioStencil.Masters.get_ItemU(@"Rectangle"));
+            result.Add("RECT", visioStencil.Masters.get_ItemU(@"Rectangle"));
+            result.Add("BOX", visioStencil.Masters.get_ItemU(@"Rectangle"));
             result.Add("CIRCLE", visioStencil.Masters.get_ItemU(@"Circle"));
             result.Add("ELLIPSE", visioStencil.Masters.get_ItemU(@"Ellipse"));
             result.Add("DIAMOND", visioStencil.Masters.get_ItemU(@"Diamond"));

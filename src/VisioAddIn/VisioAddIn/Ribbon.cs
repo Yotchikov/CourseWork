@@ -32,7 +32,7 @@ namespace VisioAddIn
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     DialogResult result;
 
-                    // Displays the MessageBox.
+                    // Displays the MessageBox
                     result = MessageBox.Show(message, caption, buttons);
                 }
             }
