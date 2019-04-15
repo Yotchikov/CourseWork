@@ -40,8 +40,9 @@ namespace GraphLibrary
 
             // Мастер-объект коннектора
             Visio.Shape connector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
-            connector.get_Cells("EndArrow").Formula = "=5";
             connector.get_Cells("ConLineRouteExt").FormulaU = "2";
+            if (!graph.VerticesEdges.ElementAt(0).HasDestinationArrowEnd)
+                connector.get_Cells("EndArrow").Formula = "=5";
 
             Dictionary<string, Visio.Master> visioMasters = getMasterShapes(visioStencil);
 
@@ -49,17 +50,24 @@ namespace GraphLibrary
             {
                 var node = graph.AllVertices.ElementAt(i);
 
-                string shape = graph.AllVertices.ElementAt(i).Attributes.ContainsKey("shape") ? node.Attributes["shape"] : "ELLIPSE";
-                string label = graph.AllVertices.ElementAt(i).Attributes.ContainsKey("label") ? node.Attributes["label"] : node.Id;
+                string shape = node.Attributes.ContainsKey("shape") ? node.Attributes["shape"] : "ELLIPSE";
+                string label = node.Attributes.ContainsKey("label") ? node.Attributes["label"] : node.Id;
                 
                 vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], 1+i/2.0, 11 - i/2.0));
                 vertices[node.Id].Text = label;
+                vertices[node.Id].get_CellsU("LineColor").FormulaU = "RGB(255,0,0)";
                 vertices[node.Id].Resize(Visio.VisResizeDirection.visResizeDirNW, -0.7, Visio.VisUnitCodes.visInches);
             }
 
             for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
             {
                 var edge = graph.VerticesEdges.ElementAt(i);
+
+                string label = edge.Attributes.ContainsKey("label") ? edge.Attributes["label"] : "";
+
+                connector.Text = label;
+                connector.get_CellsU("LineColor").FormulaU = "RGB(255,0,0)";
+
                 vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
             }
 
@@ -81,6 +89,11 @@ namespace GraphLibrary
             }
         }
 
+        /// <summary>
+        /// Процедура, сопоставляющая ключу-строке из допустимых фигур DOT мастер-фигуру Visio
+        /// </summary>
+        /// <param name="visioStencil"></param>
+        /// <returns>Словарь string-Visio.Master</returns>
         private Dictionary<string, Visio.Master> getMasterShapes(Visio.Document visioStencil)
         {
             Dictionary<string, Visio.Master> result = new Dictionary<string, Visio.Master>();

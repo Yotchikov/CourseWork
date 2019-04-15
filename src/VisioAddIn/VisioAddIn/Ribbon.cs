@@ -20,12 +20,12 @@ namespace VisioAddIn
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string input = File.ReadAllText(openFileDialog.FileName);
-                try
+                // try
                 {
                     Globals.ThisAddIn.ShowGraph(input);
                     removeGraphButton.Enabled = true;
                 }
-                catch (Exception exc)
+                /*catch (Exception exc)
                 {
                     string message = exc.Message;
                     string caption = "Не удалось отобразить граф";
@@ -34,7 +34,7 @@ namespace VisioAddIn
 
                     // Displays the MessageBox
                     result = MessageBox.Show(message, caption, buttons);
-                }
+                }*/
             }
         }
 
