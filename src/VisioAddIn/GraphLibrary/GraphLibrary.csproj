@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="GraphParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VisioColor.cs" />
     <Compile Include="VisioGraph.cs" />
   </ItemGroup>
   <ItemGroup>

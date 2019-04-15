@@ -55,7 +55,6 @@ namespace GraphLibrary
                 
                 vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], 1+i/2.0, 11 - i/2.0));
                 vertices[node.Id].Text = label;
-                vertices[node.Id].get_CellsU("LineColor").FormulaU = "RGB(255,0,0)";
                 vertices[node.Id].Resize(Visio.VisResizeDirection.visResizeDirNW, -0.7, Visio.VisUnitCodes.visInches);
             }
 
@@ -64,9 +63,10 @@ namespace GraphLibrary
                 var edge = graph.VerticesEdges.ElementAt(i);
 
                 string label = edge.Attributes.ContainsKey("label") ? edge.Attributes["label"] : "";
+                string color = edge.Attributes.ContainsKey("color") ? edge.Attributes["color"] : "black";
 
                 connector.Text = label;
-                connector.get_CellsU("LineColor").FormulaU = "RGB(255,0,0)";
+                connector.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
 
                 vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
             }
