@@ -71,7 +71,8 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.FileName = "Graph File";
+            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot|All files (*.*)|*.*";
             // 
             // Ribbon
             // 
