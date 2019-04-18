@@ -1,0 +1,6 @@
+graph
+{
+ a [label="Hello!"; color="red"];
+ b;
+ a -- b;
+}
