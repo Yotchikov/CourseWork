@@ -12,6 +12,8 @@ namespace GraphLibrary
         {
             switch(color)
             {
+                case "white":
+                    return "RGB(255, 255, 255)";
                 case "red":
                     return "RGB(255,0,0)";
                 case "green":
@@ -39,7 +41,7 @@ namespace GraphLibrary
                 case "cadetblue":
                     return "RGB(95, 158, 160)";
                 default:
-                    throw new ArgumentException("У одного из ребер графа недопустимый цвет");
+                    throw new ArgumentException("Обнаружен недопустимый цвет");
             }
         }
     }

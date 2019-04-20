@@ -1,15 +1,15 @@
 digraph TrafficLights {
-node [shape=box];  gy2; yr2; rg2; gy1; yr1; rg1;
-node [shape=circle,fixedsize=true,width=0.9];  green2; yellow2; red2; safe2; safe1; green1; yellow1; red1;
+gy2 [shape=box]; yr2 [shape=box]; rg2 [shape=box]; gy1 [shape=box]; yr1 [shape=box]; rg1 [shape=box, color=red];
+green2 [shape=circle]; yellow2 [shape=circle]; red2 [shape=circle]; safe2 [shape=circle]; safe1 [shape=circle]; green1 [shape=circle]; yellow1 [shape=circle]; red1 [shape=circle];
 gy2->yellow2;
 rg2->green2;
-yr2->safe1 [color="green"];
+yr2->safe1;
 yr2->red2;
 safe2->rg2;
 green2->gy2;
 yellow2->yr2;
-red2->rg2;
-gy1->yellow1;
+red2->rg2 [style=dotted];
+gy1->yellow1 [style=dashed];
 rg1->green1;
 yr1->safe2;
 yr1->red1;

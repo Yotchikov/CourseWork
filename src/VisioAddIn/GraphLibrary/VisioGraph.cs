@@ -43,30 +43,41 @@ namespace GraphLibrary
             connector.get_Cells("ConLineRouteExt").FormulaU = "2";
             if (!graph.VerticesEdges.ElementAt(0).HasDestinationArrowEnd)
                 connector.get_Cells("EndArrow").Formula = "=5";
+            else
+                connector.get_Cells("EndArrow").Formula = "=0";
 
-            Dictionary<string, Visio.Master> visioMasters = getMasterShapes(visioStencil);
+            // Мастер-объект базовых фигур Visio
+            Dictionary<string, Visio.Master> visioMasters = GetMasterShapes(visioStencil);
 
+            // Расстановка вершин графа
             for (int i = 0; i < graph.AllVertices.Count(); ++i)
             {
                 var node = graph.AllVertices.ElementAt(i);
 
                 string shape = node.Attributes.ContainsKey("shape") ? node.Attributes["shape"] : "ELLIPSE";
                 string label = node.Attributes.ContainsKey("label") ? node.Attributes["label"] : node.Id;
-                
+                string color = node.Attributes.ContainsKey("color") ? node.Attributes["color"] : "black";
+                string style = node.Attributes.ContainsKey("style") ? LineStyle(node.Attributes["style"].ToLower()) : "1";
+
                 vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], 1+i/2.0, 11 - i/2.0));
                 vertices[node.Id].Text = label;
+                vertices[node.Id].get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
+                vertices[node.Id].get_CellsU("LinePattern").FormulaU = style;
                 vertices[node.Id].Resize(Visio.VisResizeDirection.visResizeDirNW, -0.7, Visio.VisUnitCodes.visInches);
             }
 
+            // Соединение вершин графа ребрами
             for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
             {
                 var edge = graph.VerticesEdges.ElementAt(i);
 
                 string label = edge.Attributes.ContainsKey("label") ? edge.Attributes["label"] : "";
                 string color = edge.Attributes.ContainsKey("color") ? edge.Attributes["color"] : "black";
+                string style = edge.Attributes.ContainsKey("style") ? LineStyle(edge.Attributes["style"].ToLower()) : "1";
 
                 connector.Text = label;
                 connector.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
+                connector.get_CellsU("LinePattern").FormulaU = style;
 
                 vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
             }
@@ -94,7 +105,7 @@ namespace GraphLibrary
         /// </summary>
         /// <param name="visioStencil"></param>
         /// <returns>Словарь string-Visio.Master</returns>
-        private Dictionary<string, Visio.Master> getMasterShapes(Visio.Document visioStencil)
+        private Dictionary<string, Visio.Master> GetMasterShapes(Visio.Document visioStencil)
         {
             Dictionary<string, Visio.Master> result = new Dictionary<string, Visio.Master>();
             result.Add("TRIANGLE", visioStencil.Masters.get_ItemU(@"Triangle"));
@@ -109,6 +120,24 @@ namespace GraphLibrary
             result.Add("ELLIPSE", visioStencil.Masters.get_ItemU(@"Ellipse"));
             result.Add("DIAMOND", visioStencil.Masters.get_ItemU(@"Diamond"));
             return result;
+        }
+
+        /// <summary>
+        /// Процедура, возвращающая номер в формуле стиля линии
+        /// </summary>
+        /// <param name="styleString">Стиль в строковом формате</param>
+        /// <returns>Номер формулы</returns>
+        private string LineStyle(string styleString)
+        {
+            switch (styleString)
+            {
+                case "dashed":
+                    return "2";
+                case "dotted":
+                    return "3";
+                default:
+                    return "1";
+            }
         }
     }
 }
