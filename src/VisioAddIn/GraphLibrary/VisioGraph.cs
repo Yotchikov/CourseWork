@@ -18,6 +18,7 @@ namespace GraphLibrary
         private GraphParser gParser = new GraphParser();
         private DotGraph<string> graph;
         private Dictionary<string, Visio.Shape> vertices = new Dictionary<string, Visio.Shape>();
+        private List<Visio.Shape> edges = new List<Visio.Shape>();
 
         /// <summary>
         /// Конструктор класса
@@ -39,12 +40,12 @@ namespace GraphLibrary
             Visio.Document visioConnectors = visioDocs.OpenEx("Basic Flowchart Shapes (US units).vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
 
             // Мастер-объект коннектора
-            Visio.Shape connector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
-            connector.get_Cells("ConLineRouteExt").FormulaU = "2";
+            Visio.Shape masterConnector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
+            masterConnector.get_Cells("ConLineRouteExt").FormulaU = "2";
             if (!graph.VerticesEdges.ElementAt(0).HasDestinationArrowEnd)
-                connector.get_Cells("EndArrow").Formula = "=5";
+                masterConnector.get_Cells("EndArrow").Formula = "=5";
             else
-                connector.get_Cells("EndArrow").Formula = "=0";
+                masterConnector.get_Cells("EndArrow").Formula = "=0";
 
             // Мастер-объект базовых фигур Visio
             Dictionary<string, Visio.Master> visioMasters = GetMasterShapes(visioStencil);
@@ -76,6 +77,7 @@ namespace GraphLibrary
             for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
             {
                 var edge = graph.VerticesEdges.ElementAt(i);
+                Visio.Shape connector = masterConnector;
 
                 string label = edge.Attributes.ContainsKey("label") ? edge.Attributes["label"] : "";
                 string color = edge.Attributes.ContainsKey("color") ? edge.Attributes["color"] : "black";
@@ -85,10 +87,11 @@ namespace GraphLibrary
                 connector.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
                 connector.get_CellsU("LinePattern").FormulaU = linestyle;
 
-                vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
+                edges.Add(connector);
+                vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, edges.ElementAt(i));
             }
 
-            connector.Delete();
+            masterConnector.Delete();
         }
 
         /// <summary>
