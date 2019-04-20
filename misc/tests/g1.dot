@@ -1,7 +1,7 @@
 digraph TrafficLights {
 gy2 [shape=box]; yr2 [shape=box]; rg2 [shape=box]; gy1 [shape=box]; yr1 [shape=box]; rg1 [shape=box, color=red];
-green2 [shape=circle]; yellow2 [shape=circle]; red2 [shape=circle]; safe2 [shape=circle]; safe1 [shape=circle]; green1 [shape=circle]; yellow1 [shape=circle]; red1 [shape=circle];
-gy2->yellow2;
+green2 [shape=circle]; yellow2 [shape=circle]; red2 [shape=circle]; safe2 [shape=box, style=dotted]; safe1 [shape=circle]; green1 [shape=circle]; yellow1 [shape=circle]; red1 [shape=circle];
+gy2->yellow2 [label="THIS IS SUPER EDGE"];
 rg2->green2;
 yr2->safe1;
 yr2->red2;
