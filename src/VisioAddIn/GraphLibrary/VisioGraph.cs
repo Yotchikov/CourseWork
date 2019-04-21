@@ -52,30 +52,37 @@ namespace GraphLibrary
             // Расстановка вершин графа
             for (int i = 0; i < graph.AllVertices.Count(); ++i)
             {
+                // Вершина
                 var node = graph.AllVertices.ElementAt(i);
 
+                // Стили вершины
                 string shape = node.Attributes.ContainsKey("shape") ? node.Attributes["shape"] : "ELLIPSE";
                 string label = node.Attributes.ContainsKey("label") ? node.Attributes["label"] : node.Id;
                 string color = node.Attributes.ContainsKey("color") ? node.Attributes["color"] : "black";
                 string style = node.Attributes.ContainsKey("style") ? node.Attributes["style"] == "filled" ? "filled" : LineStyle(node.Attributes["style"].ToLower()) : "1";
 
+                // Добавление вершины на страницу Visio
                 vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], 1+i/2.0, 11 - i/2.0));
+
+                // Установка стилей для фигуры на странице Visio
                 vertices[node.Id].Text = label;
                 if (style == "filled")
-                    vertices[node.Id].get_CellsSRC(
-                (short)Visio.VisSectionIndices.visSectionObject,
-                (short)Visio.VisRowIndices.visRowFill,
-                (short)Visio.VisCellIndices.visFillForegnd).FormulaU = VisioColor.ColorToRgb(color.ToLower());
+                    vertices[node.Id].get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowFill, (short)Visio.VisCellIndices.visFillForegnd).FormulaU = VisioColor.ColorToRgb(color.ToLower());
                 else
                     vertices[node.Id].get_CellsU("LinePattern").FormulaU = style;
                 vertices[node.Id].get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
+
+                // Ресайзинг
                 vertices[node.Id].Resize(Visio.VisResizeDirection.visResizeDirNW, -0.8, Visio.VisUnitCodes.visInches);
             }
 
             // Соединение вершин графа ребрами
             for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
             {
+                // Ребро
                 var edge = graph.VerticesEdges.ElementAt(i);
+
+                // Фигура соединидельной линии (коннектора)
                 Visio.Shape connector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
                 connector.get_Cells("ConLineRouteExt").FormulaU = "2";
                 if (isOriented)
@@ -83,28 +90,22 @@ namespace GraphLibrary
                 else
                     connector.get_Cells("EndArrow").Formula = "=0";
 
+                // Стили ребра
                 string label = edge.Attributes.ContainsKey("label") ? edge.Attributes["label"] : "";
                 string color = edge.Attributes.ContainsKey("color") ? edge.Attributes["color"] : "black";
                 string linestyle = edge.Attributes.ContainsKey("style") ? LineStyle(edge.Attributes["style"].ToLower()) : "1";
 
+                // Установка стилей для фигуры на странице Visio
                 connector.Text = label;
                 connector.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
                 connector.get_CellsU("LinePattern").FormulaU = linestyle;
                 
+                // Соединение вершин при помощи данного коннектора
                 vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
 
+                // Удаление коннектора-болванки
                 connector.Delete();
             }
-        }
-
-        /// <summary>
-        /// Процедура удаления графа в документе Visio
-        /// </summary>
-        /// <param name="visioDocs">Документы Visio</param>
-        /// <param name="visioPage">Текущая страница Visio</param>
-        public void RemoveGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
-        {
-            visioPage.Delete(1);
         }
 
         /// <summary>

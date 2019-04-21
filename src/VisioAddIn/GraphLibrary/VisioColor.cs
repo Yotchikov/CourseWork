@@ -40,6 +40,22 @@ namespace GraphLibrary
                     return "RGB(222, 184, 135)";
                 case "cadetblue":
                     return "RGB(95, 158, 160)";
+                case "chartreuse":
+                    return "RGB(127, 255, 0)";
+                case "chocolate":
+                    return "RGB(210, 105, 30)";
+                case "coral":
+                    return "RGB(255, 127, 80)";
+                case "cornflowerblue":
+                    return "RGB(100, 149, 237)";
+                case "cornsilk":
+                    return "RGB(255, 248, 220)";
+                case "crimson":
+                    return "RGB(220, 20, 60)";
+                case "cyan":
+                    return "RGB(0, 255, 255)";
+                case "darkgoldenrod":
+                    return "RGB(184, 134, 11)";
                 default:
                     throw new ArgumentException("Обнаружен недопустимый цвет");
             }

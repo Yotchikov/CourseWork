@@ -31,14 +31,6 @@ namespace VisioAddIn
             graph.PresentGraphInVisio(visioDocs, visioPage);
         }
 
-        public void RemoveGraph()
-        {
-            Visio.Documents visioDocs = this.Application.Documents;
-            Visio.Page visioPage = this.Application.ActiveDocument.Pages[2];
-
-            graph.RemoveGraphInVisio(visioDocs, visioPage);
-        }
-
         #region Код, автоматически созданный VSTO
 
         /// <summary>
