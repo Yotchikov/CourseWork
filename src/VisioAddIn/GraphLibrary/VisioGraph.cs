@@ -92,9 +92,9 @@ namespace GraphLibrary
                 connector.get_CellsU("LinePattern").FormulaU = linestyle;
                 
                 vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
-            }
 
-            masterConnector.Delete();
+                connector.Delete();
+            }
         }
 
         /// <summary>
