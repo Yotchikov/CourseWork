@@ -18,7 +18,6 @@ namespace GraphLibrary
         private GraphParser gParser = new GraphParser();
         private DotGraph<string> graph;
         private Dictionary<string, Visio.Shape> vertices = new Dictionary<string, Visio.Shape>();
-        private List<Visio.Shape> edges = new List<Visio.Shape>();
 
         /// <summary>
         /// Конструктор класса
@@ -86,9 +85,8 @@ namespace GraphLibrary
                 connector.Text = label;
                 connector.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
                 connector.get_CellsU("LinePattern").FormulaU = linestyle;
-
-                edges.Add(connector);
-                vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, edges.ElementAt(i));
+                
+                vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
             }
 
             masterConnector.Delete();
