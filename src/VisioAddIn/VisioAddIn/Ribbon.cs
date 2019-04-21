@@ -12,7 +12,6 @@ namespace VisioAddIn
     {
         private void Ribbon_Load(object sender, RibbonUIEventArgs e)
         {
-
         }
 
         private void openFileButton_Click(object sender, RibbonControlEventArgs e)
@@ -23,11 +22,10 @@ namespace VisioAddIn
                 try
                 {
                     Globals.ThisAddIn.ShowGraph(input);
-                    removeGraphButton.Enabled = true;
                 }
                 catch (Exception exc)
                 {
-                    string message = exc.Message;
+                    string message = "Во время импорта графа возникла следующая ошибка:\n" + exc.Message;
                     string caption = "Не удалось отобразить граф";
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     DialogResult result;
@@ -36,12 +34,6 @@ namespace VisioAddIn
                     result = MessageBox.Show(message, caption, buttons);
                 }
             }
-        }
-
-        private void removeGraphButton_Click(object sender, RibbonControlEventArgs e)
-        {
-            Globals.ThisAddIn.RemoveGraph();
-            removeGraphButton.Enabled = false;
         }
     }
 }

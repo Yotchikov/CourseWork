@@ -18,6 +18,7 @@ namespace GraphLibrary
         private GraphParser gParser = new GraphParser();
         private DotGraph<string> graph;
         private Dictionary<string, Visio.Shape> vertices = new Dictionary<string, Visio.Shape>();
+        private bool isOriented;
 
         /// <summary>
         /// Конструктор класса
@@ -26,6 +27,7 @@ namespace GraphLibrary
         public VisioGraph(string input)
         {
             graph = gParser.ParseGraphData(input);
+            isOriented = input.StartsWith("digraph");
         }
 
         /// <summary>
@@ -35,23 +37,15 @@ namespace GraphLibrary
         /// <param name="visioPage">Текущая страница в Visio</param>
         public void PresentGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
         {
+            // Название для страницы с графом
             if (graph.Attributes.ContainsKey("label"))
                 visioPage.Name = graph.Attributes["label"];
             else
                 visioPage.Name = "Graph";
-
-
+            
             Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
             Visio.Document visioConnectors = visioDocs.OpenEx("Basic Flowchart Shapes (US units).vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
-
-            // Мастер-объект коннектора
-            Visio.Shape masterConnector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
-            masterConnector.get_Cells("ConLineRouteExt").FormulaU = "2";
-            if (!graph.VerticesEdges.ElementAt(0).HasDestinationArrowEnd)
-                masterConnector.get_Cells("EndArrow").Formula = "=5";
-            else
-                masterConnector.get_Cells("EndArrow").Formula = "=0";
-
+            
             // Мастер-объект базовых фигур Visio
             Dictionary<string, Visio.Master> visioMasters = GetMasterShapes(visioStencil);
 
@@ -82,7 +76,12 @@ namespace GraphLibrary
             for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
             {
                 var edge = graph.VerticesEdges.ElementAt(i);
-                Visio.Shape connector = masterConnector;
+                Visio.Shape connector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
+                connector.get_Cells("ConLineRouteExt").FormulaU = "2";
+                if (isOriented)
+                    connector.get_Cells("EndArrow").Formula = "=5";
+                else
+                    connector.get_Cells("EndArrow").Formula = "=0";
 
                 string label = edge.Attributes.ContainsKey("label") ? edge.Attributes["label"] : "";
                 string color = edge.Attributes.ContainsKey("color") ? edge.Attributes["color"] : "black";
@@ -105,19 +104,6 @@ namespace GraphLibrary
         /// <param name="visioPage">Текущая страница Visio</param>
         public void RemoveGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
         {
-            /*for (int i = 0; i < graph.AllVertices.Count(); ++i)
-            {
-                var node = graph.AllVertices.ElementAt(i);
-                try
-                {
-                    if (vertices.ContainsKey(node.Id))
-                        vertices[node.Id].DeleteEx(1);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Nothing happened :D");
-                }
-            }*/
             visioPage.Delete(1);
         }
 
