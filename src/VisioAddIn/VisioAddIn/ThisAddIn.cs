@@ -25,7 +25,7 @@ namespace VisioAddIn
         public void ShowGraph(string input)
         {
             Visio.Documents visioDocs = this.Application.Documents;
-            Visio.Page visioPage = this.Application.ActivePage;
+            Visio.Page visioPage = this.Application.ActiveDocument.Pages.Add();
 
             graph = new VisioGraph(input);
             graph.PresentGraphInVisio(visioDocs, visioPage);
@@ -34,7 +34,7 @@ namespace VisioAddIn
         public void RemoveGraph()
         {
             Visio.Documents visioDocs = this.Application.Documents;
-            Visio.Page visioPage = this.Application.ActiveDocument.Pages.Add();
+            Visio.Page visioPage = this.Application.ActivePage;
 
             graph.RemoveGraphInVisio(visioDocs, visioPage);
         }

@@ -35,6 +35,12 @@ namespace GraphLibrary
         /// <param name="visioPage">Текущая страница в Visio</param>
         public void PresentGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
         {
+            if (graph.Attributes.ContainsKey("label"))
+                visioPage.Name = graph.Attributes["label"];
+            else
+                visioPage.Name = "Graph";
+
+
             Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
             Visio.Document visioConnectors = visioDocs.OpenEx("Basic Flowchart Shapes (US units).vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
 
@@ -99,7 +105,7 @@ namespace GraphLibrary
         /// <param name="visioPage">Текущая страница Visio</param>
         public void RemoveGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
         {
-            for (int i = 0; i < graph.AllVertices.Count(); ++i)
+            /*for (int i = 0; i < graph.AllVertices.Count(); ++i)
             {
                 var node = graph.AllVertices.ElementAt(i);
                 try
@@ -111,7 +117,8 @@ namespace GraphLibrary
                 {
                     Console.WriteLine("Nothing happened :D");
                 }
-            }
+            }*/
+            visioPage.Delete(1);
         }
 
         /// <summary>
