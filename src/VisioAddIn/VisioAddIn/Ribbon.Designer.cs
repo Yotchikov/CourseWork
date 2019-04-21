@@ -56,8 +56,13 @@
             // 
             // openFileButton
             // 
+            this.openFileButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.openFileButton.Description = "Выбрать файл";
+            this.openFileButton.Image = global::VisioAddIn.Properties.Resources.Browse;
+            this.openFileButton.ImageName = "Выбрать файл";
             this.openFileButton.Label = "Выбрать файл";
             this.openFileButton.Name = "openFileButton";
+            this.openFileButton.ShowImage = true;
             this.openFileButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.openFileButton_Click);
             // 
             // openFileDialog
