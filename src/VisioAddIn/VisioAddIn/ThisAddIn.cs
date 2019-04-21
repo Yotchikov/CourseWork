@@ -31,6 +31,11 @@ namespace VisioAddIn
             graph.PresentGraphInVisio(visioDocs, visioPage);
         }
 
+        public void RemovePageIfError()
+        {
+            this.Application.ActiveDocument.Pages[this.Application.ActiveDocument.Pages.Count].Delete(1);
+        }
+
         #region Код, автоматически созданный VSTO
 
         /// <summary>

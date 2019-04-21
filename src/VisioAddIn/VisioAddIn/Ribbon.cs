@@ -25,12 +25,14 @@ namespace VisioAddIn
                 }
                 catch (Exception exc)
                 {
-                    string message = "Во время импорта графа возникла следующая ошибка:\n" + exc.Message;
+                    string message = "Во время импорта графа возникла следующая ошибка:\n\n" + exc.Message;
                     string caption = "Не удалось отобразить граф";
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     DialogResult result;
 
-                    // Displays the MessageBox
+                    Globals.ThisAddIn.RemovePageIfError();
+
+                    // Отобразить окошко об ошибке
                     result = MessageBox.Show(message, caption, buttons);
                 }
             }
