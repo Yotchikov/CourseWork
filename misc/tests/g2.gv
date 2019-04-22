@@ -1,9 +1,14 @@
-graph
-{
-a [label="Hello!"; color="red"];
-b;
-a -- b;
-b -- a;
-c;
-a --c;
+digraph Life {
+Birth [shape=box, color=green];
+Child [shape=circle, color=cyan];
+Young [shape=circle, color=cyan];
+Adult [shape=circle, color=cyan];
+Elder [shape=circle, color=cyan];
+Death [shape=triangle, color=red];
+Birth -> Child;
+Child -> Young;
+Young -> Adult;
+Adult -> Elder;
+Elder -> Death;
+Death -> Birth [label="?", style=dotted]
 }
