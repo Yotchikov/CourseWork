@@ -36,13 +36,7 @@ namespace GraphLibrary
         /// <param name="visioDocs">Документы Visio</param>
         /// <param name="visioPage">Текущая страница в Visio</param>
         public void PresentGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
-        {
-            // Название для страницы с графом
-            if (graph.Attributes.ContainsKey("label"))
-                visioPage.Name = graph.Attributes["label"];
-            else
-                visioPage.Name = "Graph";
-            
+        {            
             Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
             Visio.Document visioConnectors = visioDocs.OpenEx("Basic Flowchart Shapes (US units).vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
             

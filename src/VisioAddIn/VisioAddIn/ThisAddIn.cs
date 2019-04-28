@@ -12,7 +12,7 @@ namespace VisioAddIn
 {
     public partial class ThisAddIn
     {
-        private VisioGraph graph;
+        private Dictionary<Visio.Page, VisioGraph> graphs = new Dictionary<Visio.Page, VisioGraph>();
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
@@ -24,16 +24,16 @@ namespace VisioAddIn
         
         public void ShowGraph(string input)
         {
-            Visio.Documents visioDocs = this.Application.Documents;
-            Visio.Page visioPage = this.Application.ActiveDocument.Pages.Add();
+            Visio.Documents visioDocs = Application.Documents;
+            Visio.Page visioPage = Application.ActiveDocument.Pages.Add();
 
-            graph = new VisioGraph(input);
-            graph.PresentGraphInVisio(visioDocs, visioPage);
+            graphs.Add(visioPage, new VisioGraph(input));
+            graphs[visioPage].PresentGraphInVisio(visioDocs, visioPage);
         }
 
         public void RemovePageIfError()
         {
-            this.Application.ActiveDocument.Pages[this.Application.ActiveDocument.Pages.Count].Delete(1);
+            Application.ActiveDocument.Pages[Application.ActiveDocument.Pages.Count].Delete(1);
         }
 
         #region Код, автоматически созданный VSTO
