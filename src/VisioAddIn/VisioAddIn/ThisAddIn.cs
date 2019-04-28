@@ -17,7 +17,7 @@ namespace VisioAddIn
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
         }
-
+        
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
         }
@@ -36,6 +36,13 @@ namespace VisioAddIn
             Application.ActiveDocument.Pages[Application.ActiveDocument.Pages.Count].Delete(1);
         }
 
+        public void DeleteGraph(Visio.Page Page)
+        {
+            if (graphs.ContainsKey(Page))
+            {
+                graphs.Remove(Page);
+            }
+        }
         #region Код, автоматически созданный VSTO
 
         /// <summary>

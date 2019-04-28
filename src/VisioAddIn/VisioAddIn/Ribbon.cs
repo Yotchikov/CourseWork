@@ -18,6 +18,7 @@ namespace VisioAddIn
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                Globals.ThisAddIn.Application.ActiveDocument.Pages.BeforePageDelete += Globals.ThisAddIn.DeleteGraph;
                 string input = File.ReadAllText(openFileDialog.FileName);
                 try
                 {
