@@ -7,6 +7,7 @@ using Graphviz4Net.Dot;
 using Graphviz4Net.Dot.AntlrParser;
 using Visio = Microsoft.Office.Interop.Visio;
 using Office = Microsoft.Office.Core;
+using System.IO;
 
 namespace GraphLibrary
 {
@@ -161,6 +162,19 @@ namespace GraphLibrary
                 default:
                     return "1";
             }
+        }
+
+        public void ExportGraph()
+        {
+            new GraphToDotConverter().Convert(File.CreateText("newfile.txt"), graph, new AttributesProvider());
+        }
+    }
+
+    public class AttributesProvider : IAttributesProvider
+    {
+        public IDictionary<string, string> GetVertexAttributes(object vertex)
+        {
+            return new Dictionary<string, string>();
         }
     }
 }

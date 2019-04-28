@@ -79,6 +79,7 @@
             this.exportGraphButton.Label = "Сохранить изменения";
             this.exportGraphButton.Name = "exportGraphButton";
             this.exportGraphButton.ShowImage = true;
+            this.exportGraphButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.exportGraphButton_Click);
             // 
             // Ribbon
             // 
