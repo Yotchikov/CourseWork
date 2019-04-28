@@ -36,8 +36,9 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group = this.Factory.CreateRibbonGroup();
-            this.openFileButton = this.Factory.CreateRibbonButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.openFileButton = this.Factory.CreateRibbonButton();
+            this.exportGraphButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +53,13 @@
             // group
             // 
             this.group.Items.Add(this.openFileButton);
+            this.group.Items.Add(this.exportGraphButton);
             this.group.Name = "group";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "Graph File";
+            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot|All files (*.*)|*.*";
             // 
             // openFileButton
             // 
@@ -65,10 +72,13 @@
             this.openFileButton.ShowImage = true;
             this.openFileButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.openFileButton_Click);
             // 
-            // openFileDialog
+            // exportGraphButton
             // 
-            this.openFileDialog.FileName = "Graph File";
-            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot|All files (*.*)|*.*";
+            this.exportGraphButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.exportGraphButton.Image = global::VisioAddIn.Properties.Resources.Save;
+            this.exportGraphButton.Label = "Сохранить изменения";
+            this.exportGraphButton.Name = "exportGraphButton";
+            this.exportGraphButton.ShowImage = true;
             // 
             // Ribbon
             // 
@@ -90,6 +100,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton openFileButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton exportGraphButton;
     }
 
     partial class ThisRibbonCollection
