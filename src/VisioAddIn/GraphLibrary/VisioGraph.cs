@@ -36,10 +36,20 @@ namespace GraphLibrary
         /// <param name="visioDocs">Документы Visio</param>
         /// <param name="visioPage">Текущая страница в Visio</param>
         public void PresentGraphInVisio(Visio.Documents visioDocs, Visio.Page visioPage)
-        {            
+        {
+            PresentNodes(visioDocs, visioPage);
+            PresentEdges(visioDocs, visioPage);
+        }
+
+        /// <summary>
+        /// Процедура отображения вершин графа в документе Visio
+        /// </summary>
+        /// <param name="visioDocs">Документы Visio</param>
+        /// <param name="visioPage">Текущая страница в Visio</param>
+        private void PresentNodes(Visio.Documents visioDocs, Visio.Page visioPage)
+        {
             Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
-            Visio.Document visioConnectors = visioDocs.OpenEx("Basic Flowchart Shapes (US units).vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
-            
+
             // Мастер-объект базовых фигур Visio
             Dictionary<string, Visio.Master> visioMasters = GetMasterShapes(visioStencil);
 
@@ -56,7 +66,7 @@ namespace GraphLibrary
                 string style = node.Attributes.ContainsKey("style") ? node.Attributes["style"] == "filled" ? "filled" : LineStyle(node.Attributes["style"].ToLower()) : "1";
 
                 // Добавление вершины на страницу Visio
-                vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], 1+i/2.0, 11 - i/2.0));
+                vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], 1 + i / 2.0, 11 - i / 2.0));
 
                 // Установка стилей для фигуры на странице Visio
                 vertices[node.Id].Text = label;
@@ -69,6 +79,16 @@ namespace GraphLibrary
                 // Ресайзинг
                 vertices[node.Id].Resize(Visio.VisResizeDirection.visResizeDirNW, -0.8, Visio.VisUnitCodes.visInches);
             }
+        }
+
+        /// <summary>
+        /// Процедура отображения ребер графа в документе Visio
+        /// </summary>
+        /// <param name="visioDocs">Документы Visio</param>
+        /// <param name="visioPage">Текущая страница в Visio</param>
+        private void PresentEdges(Visio.Documents visioDocs, Visio.Page visioPage)
+        {
+            Visio.Document visioConnectors = visioDocs.OpenEx("Basic Flowchart Shapes (US units).vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
 
             // Соединение вершин графа ребрами
             for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
@@ -93,7 +113,7 @@ namespace GraphLibrary
                 connector.Text = label;
                 connector.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
                 connector.get_CellsU("LinePattern").FormulaU = linestyle;
-                
+
                 // Соединение вершин при помощи данного коннектора
                 vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
 
