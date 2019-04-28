@@ -164,6 +164,10 @@ namespace GraphLibrary
             }
         }
 
+        /// <summary>
+        /// Процедура экспорта графа в файл
+        /// </summary>
+        /// <param name="filePath">Путь к файлу</param>
         public void ExportGraph(string filePath)
         {
             using (StreamWriter sw = new StreamWriter(filePath))

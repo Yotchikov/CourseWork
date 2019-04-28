@@ -18,7 +18,6 @@ namespace VisioAddIn
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Globals.ThisAddIn.Application.ActiveDocument.Pages.BeforePageDelete += Globals.ThisAddIn.DeleteGraph;
                 string input = File.ReadAllText(openFileDialog.FileName);
                 try
                 {
@@ -47,7 +46,7 @@ namespace VisioAddIn
                 {
                     Globals.ThisAddIn.ExportGraph(saveFileDialog.FileName);
                 }
-                catch (NotSupportedException exc)
+                catch (Exception exc)
                 {
                     string message = "Во время экспорта графа возникла следующая ошибка:\n\n" + exc.Message;
                     string caption = "Не удалось экспортировать граф";

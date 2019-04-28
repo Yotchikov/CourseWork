@@ -22,8 +22,14 @@ namespace VisioAddIn
         {
         }
         
+        /// <summary>
+        /// Метод отображения графа в Visio
+        /// </summary>
+        /// <param name="input"></param>
         public void ShowGraph(string input)
         {
+            Application.ActiveDocument.Pages.BeforePageDelete += Globals.ThisAddIn.DeleteGraph;
+
             Visio.Documents visioDocs = Application.Documents;
             Visio.Page visioPage = Application.ActiveDocument.Pages.Add();
 
@@ -31,12 +37,19 @@ namespace VisioAddIn
             graphs[visioPage].PresentGraphInVisio(visioDocs, visioPage);
         }
 
+        /// <summary>
+        /// Метод удаления страницы, в случае, если возникла ошибка
+        /// </summary>
         public void RemovePageIfError()
         {
             Application.ActiveDocument.Pages[Application.ActiveDocument.Pages.Count].Delete(1);
         }
 
-        public void DeleteGraph(Visio.Page Page)
+        /// <summary>
+        /// Удаление графа из словаря, если была удалена страница
+        /// </summary>
+        /// <param name="Page"></param>
+        private void DeleteGraph(Visio.Page Page)
         {
             if (graphs.ContainsKey(Page))
             {
@@ -44,13 +57,17 @@ namespace VisioAddIn
             }
         }
 
+        /// <summary>
+        /// Метод экспорта графа в файл
+        /// </summary>
+        /// <param name="filePath"></param>
         public void ExportGraph(string filePath)
         {
             if (graphs.ContainsKey(Application.ActivePage))
             {
                 graphs[Application.ActivePage].ExportGraph(filePath);
             }
-            else throw new NotSupportedException("На данной странице не представлен граф");
+            else throw new ArgumentException("На данной странице не представлен граф");
         }
 
         #region Код, автоматически созданный VSTO
