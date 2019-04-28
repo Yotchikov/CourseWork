@@ -164,9 +164,12 @@ namespace GraphLibrary
             }
         }
 
-        public void ExportGraph()
+        public void ExportGraph(string filePath)
         {
-            new GraphToDotConverter().Convert(File.CreateText("newfile.txt"), graph, new AttributesProvider());
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                new GraphToDotConverter().Convert(sw, graph, new AttributesProvider());
+            }
         }
     }
 

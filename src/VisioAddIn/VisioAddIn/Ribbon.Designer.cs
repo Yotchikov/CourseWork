@@ -39,6 +39,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.openFileButton = this.Factory.CreateRibbonButton();
             this.exportGraphButton = this.Factory.CreateRibbonButton();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tab1.SuspendLayout();
             this.group.SuspendLayout();
             this.SuspendLayout();
@@ -81,6 +82,10 @@
             this.exportGraphButton.ShowImage = true;
             this.exportGraphButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.exportGraphButton_Click);
             // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot|All files (*.*)|*.*";
+            // 
             // Ribbon
             // 
             this.Name = "Ribbon";
@@ -102,6 +107,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton openFileButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton exportGraphButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 
     partial class ThisRibbonCollection

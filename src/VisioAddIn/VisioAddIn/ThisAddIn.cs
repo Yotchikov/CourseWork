@@ -43,6 +43,16 @@ namespace VisioAddIn
                 graphs.Remove(Page);
             }
         }
+
+        public void ExportGraph(string filePath)
+        {
+            if (graphs.ContainsKey(Application.ActivePage))
+            {
+                graphs[Application.ActivePage].ExportGraph(filePath);
+            }
+            else throw new NotSupportedException("На данной странице не представлен граф");
+        }
+
         #region Код, автоматически созданный VSTO
 
         /// <summary>

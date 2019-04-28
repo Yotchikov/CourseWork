@@ -41,7 +41,23 @@ namespace VisioAddIn
 
         private void exportGraphButton_Click(object sender, RibbonControlEventArgs e)
         {
-            
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Globals.ThisAddIn.ExportGraph(saveFileDialog.FileName);
+                }
+                catch (NotSupportedException exc)
+                {
+                    string message = "Во время экспорта графа возникла следующая ошибка:\n\n" + exc.Message;
+                    string caption = "Не удалось экспортировать граф";
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    DialogResult result;
+
+                    // Отобразить окошко об ошибке
+                    result = MessageBox.Show(message, caption, buttons);
+                }
+            }
         }
     }
 }
