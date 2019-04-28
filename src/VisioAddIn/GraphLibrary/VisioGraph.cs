@@ -123,6 +123,24 @@ namespace GraphLibrary
             }
         }
 
+        public void DeleteEdge(Visio.Connects connects)
+        {
+            if (vertices.ContainsValue(connects.FromSheet) && vertices.ContainsValue(connects.ToSheet))
+            {
+                for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
+                {
+                    // Ребро
+                    var edge = graph.VerticesEdges.ElementAt(i);
+
+                    if (vertices[edge.Source.Id] == connects.FromSheet && vertices[edge.Destination.Id] == connects.ToSheet)
+                    {
+                        graph.RemoveEdge(edge);
+                        break;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Процедура, сопоставляющая ключу-строке из допустимых фигур DOT мастер-фигуру Visio
         /// </summary>

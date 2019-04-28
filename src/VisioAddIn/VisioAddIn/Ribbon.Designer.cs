@@ -60,7 +60,7 @@
             // openFileDialog
             // 
             this.openFileDialog.FileName = "Graph File";
-            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot|All files (*.*)|*.*";
+            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
             // 
             // openFileButton
             // 
@@ -84,7 +84,8 @@
             // 
             // saveFileDialog
             // 
-            this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot|All files (*.*)|*.*";
+            this.saveFileDialog.DefaultExt = "gv";
+            this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
             // 
             // Ribbon
             // 
