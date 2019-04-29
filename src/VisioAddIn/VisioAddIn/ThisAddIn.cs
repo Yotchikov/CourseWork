@@ -37,12 +37,12 @@ namespace VisioAddIn
             graphs[visioPage].PresentGraphInVisio(visioDocs, visioPage);
 
             Application.ConnectionsDeleted += DeleteEdge;
-            Application.ActivePage.ConnectionsAdded += DeleteEdge;
+            Application.ActivePage.ConnectionsAdded += AddEdge;
         }
 
         private void AddEdge(Visio.Connects Connects)
         {
-            throw new NotImplementedException();
+            graphs[Application.ActivePage].AddEdge(Connects);
         }
 
         private void DeleteEdge(Visio.Connects Connects)

@@ -42,6 +42,8 @@ namespace VisioAddIn
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
+                Globals.ThisAddIn.ExportGraph(saveFileDialog.FileName);
+                /*
                 try
                 {
                     Globals.ThisAddIn.ExportGraph(saveFileDialog.FileName);
@@ -55,7 +57,7 @@ namespace VisioAddIn
 
                     // Отобразить окошко об ошибке
                     result = MessageBox.Show(message, caption, buttons);
-                }
+                }*/
             }
         }
     }

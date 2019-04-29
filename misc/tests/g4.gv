@@ -1,8 +1,8 @@
-graph a
+digraph a
 {
 a;
 b;
 c;
-b -- a [label="1"];
-c -- b [label="2"];
+b -> a [label="1"];
+c -> b [label="2"];
 }

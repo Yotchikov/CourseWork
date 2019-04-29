@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Graphviz4Net.Graphs;
 using Graphviz4Net.Dot;
 using Graphviz4Net.Dot.AntlrParser;
 using Visio = Microsoft.Office.Interop.Visio;
@@ -18,7 +19,7 @@ namespace GraphLibrary
     {
         private GraphParser gParser = new GraphParser();
         private DotGraph<string> graph;
-        private Dictionary<string, Visio.Shape> vertices = new Dictionary<string, Visio.Shape>();
+        private Dictionary<DotVertex<string>, Visio.Shape> vertices = new Dictionary<DotVertex<string>, Visio.Shape>();
         private bool isOriented;
 
         /// <summary>
@@ -67,18 +68,18 @@ namespace GraphLibrary
                 string style = node.Attributes.ContainsKey("style") ? node.Attributes["style"] == "filled" ? "filled" : LineStyle(node.Attributes["style"].ToLower()) : "1";
 
                 // Добавление вершины на страницу Visio
-                vertices.Add(node.Id, visioPage.Drop(visioMasters[shape.ToUpper()], 1 + i / 2.0, 11 - i / 2.0));
+                vertices.Add(node, visioPage.Drop(visioMasters[shape.ToUpper()], 1 + i / 2.0, 11 - i / 2.0));
 
                 // Установка стилей для фигуры на странице Visio
-                vertices[node.Id].Text = label;
+                vertices[node].Text = label;
                 if (style == "filled")
-                    vertices[node.Id].get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowFill, (short)Visio.VisCellIndices.visFillForegnd).FormulaU = VisioColor.ColorToRgb(color.ToLower());
+                    vertices[node].get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowFill, (short)Visio.VisCellIndices.visFillForegnd).FormulaU = VisioColor.ColorToRgb(color.ToLower());
                 else
-                    vertices[node.Id].get_CellsU("LinePattern").FormulaU = style;
-                vertices[node.Id].get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
+                    vertices[node].get_CellsU("LinePattern").FormulaU = style;
+                vertices[node].get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb(color.ToLower());
 
                 // Ресайзинг
-                vertices[node.Id].Resize(Visio.VisResizeDirection.visResizeDirNW, -0.8, Visio.VisUnitCodes.visInches);
+                vertices[node].Resize(Visio.VisResizeDirection.visResizeDirNW, -0.8, Visio.VisUnitCodes.visInches);
             }
         }
 
@@ -116,7 +117,7 @@ namespace GraphLibrary
                 connector.get_CellsU("LinePattern").FormulaU = linestyle;
 
                 // Соединение вершин при помощи данного коннектора
-                vertices[edge.Source.Id].AutoConnect(vertices[edge.Destination.Id], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
+                vertices[edge.Source].AutoConnect(vertices[edge.Destination], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
 
                 // Удаление коннектора-болванки
                 connector.Delete();
@@ -125,7 +126,21 @@ namespace GraphLibrary
 
         public void AddEdge(Visio.Connects connects)
         {
-
+            // if (vertices.ContainsValue(connects.FromSheet) && vertices.ContainsValue(connects.ToSheet))
+            {
+                connects.FromSheet.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb("red");
+                connects.ToSheet.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb("green");
+                DotVertex<string> from = new DotVertex<string>("");
+                DotVertex<string> to = new DotVertex<string>("");
+                foreach (var node in vertices)
+                {
+                    if (node.Value == connects.ToSheet)
+                    {
+                        from = node.Key;
+                    }
+                }
+                graph.AddEdge(new DotEdge<string>(from, from));
+            }
         }
 
         public void DeleteEdge(Visio.Connects connects)
@@ -138,7 +153,7 @@ namespace GraphLibrary
                     // Ребро
                     var edge = graph.VerticesEdges.ElementAt(i);
 
-                    if (vertices[edge.Source.Id] == connects.FromSheet && vertices[edge.Destination.Id] == connects.ToSheet)
+                    if (vertices[edge.Source] == connects.FromSheet && vertices[edge.Destination] == connects.ToSheet)
                     {
                         graph.RemoveEdge(edge);
                         break;
