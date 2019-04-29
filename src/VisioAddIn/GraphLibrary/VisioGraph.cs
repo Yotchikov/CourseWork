@@ -20,7 +20,7 @@ namespace GraphLibrary
         private DotGraph<string> graph;
         private Dictionary<DotVertex<string>, Visio.Shape> vertices = new Dictionary<DotVertex<string>, Visio.Shape>();
         private bool isOriented;
-        private Dictionary<Visio.Connects, List<Visio.Shape>> newEdges = new Dictionary<Visio.Connects, List<Visio.Shape>>();
+        private Dictionary<Visio.Shape, List<Visio.Shape>> newEdges = new Dictionary<Visio.Shape, List<Visio.Shape>>();
 
         /// <summary>
         /// Конструктор класса
@@ -126,24 +126,37 @@ namespace GraphLibrary
 
         public void AddEdge(Visio.Connects connects)
         {
-            // if (vertices.ContainsValue(connects.FromSheet) && vertices.ContainsValue(connects.ToSheet))
+            if (newEdges.ContainsKey(connects.FromSheet))
             {
-                connects.FromSheet.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb("red");
-                connects.ToSheet.get_CellsU("LineColor").FormulaU = VisioColor.ColorToRgb("green");
-                DotVertex<string> from = new DotVertex<string>("");
-                DotVertex<string> to = new DotVertex<string>("");
-                foreach (var node in vertices)
+                newEdges[connects.FromSheet].Add(connects.ToSheet);
+                if (vertices.ContainsValue(newEdges[connects.FromSheet][0]) && vertices.ContainsValue(newEdges[connects.FromSheet][1]))
                 {
-                    if (node.Value == connects.ToSheet)
+                    DotVertex<string> from = new DotVertex<string>("");
+                    DotVertex<string> to = new DotVertex<string>("");
+                    foreach (var node in vertices)
                     {
-                        from = node.Key;
+                        if (node.Value == newEdges[connects.FromSheet][0])
+                        {
+                            from = node.Key;
+                        }
+                        if (node.Value == newEdges[connects.FromSheet][1])
+                        {
+                            to = node.Key;
+                        }
                     }
+                    graph.AddEdge(new DotEdge<string>(from, to));
                 }
-                graph.AddEdge(new DotEdge<string>(from, from));
+                newEdges.Remove(connects.FromSheet);
+            }
+            else
+            {
+                List<Visio.Shape> listOfConnectingNodes = new List<Visio.Shape>();
+                listOfConnectingNodes.Add(connects.ToSheet);
+                newEdges.Add(connects.FromSheet, listOfConnectingNodes);
             }
         }
 
-        public void DeleteEdge(Visio.Connects connects)
+            public void DeleteEdge(Visio.Connects connects)
         {
             throw new NotImplementedException();
             if (vertices.ContainsValue(connects.FromSheet) && vertices.ContainsValue(connects.ToSheet))
