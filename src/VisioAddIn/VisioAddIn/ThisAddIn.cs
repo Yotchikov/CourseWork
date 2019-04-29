@@ -40,6 +40,10 @@ namespace VisioAddIn
             Application.ActivePage.ConnectionsAdded += AddEdge;
         }
 
+        /// <summary>
+        /// Метод удаления ребра
+        /// </summary>
+        /// <param name="Connects"></param>
         private void AddEdge(Visio.Connects Connects)
         {
             graphs[Application.ActivePage].AddEdge(Connects);

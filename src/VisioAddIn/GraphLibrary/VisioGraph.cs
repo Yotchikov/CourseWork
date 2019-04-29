@@ -164,6 +164,10 @@ namespace GraphLibrary
             }
             else
             {
+                // Применяем стили к коннектору
+                connects.FromSheet.get_Cells("ConLineRouteExt").FormulaU = "2";
+                connects.FromSheet.get_Cells("EndArrow").Formula = "=5";
+
                 // Добавляем новый коннектор в словарь + вершину, от которой он стартовал, ожидая соединения ее со второй вершиной
                 List<Visio.Shape> listOfConnectingNodes = new List<Visio.Shape>();
                 listOfConnectingNodes.Add(connects.ToSheet);
