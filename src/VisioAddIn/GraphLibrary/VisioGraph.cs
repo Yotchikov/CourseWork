@@ -124,15 +124,25 @@ namespace GraphLibrary
             }
         }
 
+        /// <summary>
+        /// Метод, вызывающийся при добавлении нового ребра между ребрами графа
+        /// </summary>
+        /// <param name="connects">Коннектор</param>
         public void AddEdge(Visio.Connects connects)
         {
+            // Если соединение добавлено с использованием существующей соединительной линии, т.е. добавляем вторую вершину
             if (newEdges.ContainsKey(connects.FromSheet))
             {
+                // Добавляем вторую вершину в пару связанных вершин
                 newEdges[connects.FromSheet].Add(connects.ToSheet);
+
+                // Если обе соединенные фигуры - это вершины нашего графа
                 if (vertices.ContainsValue(newEdges[connects.FromSheet][0]) && vertices.ContainsValue(newEdges[connects.FromSheet][1]))
                 {
                     DotVertex<string> from = new DotVertex<string>("");
                     DotVertex<string> to = new DotVertex<string>("");
+
+                    // Ищем, каким вершинам они соответствуют
                     foreach (var node in vertices)
                     {
                         if (node.Value == newEdges[connects.FromSheet][0])
@@ -144,19 +154,28 @@ namespace GraphLibrary
                             to = node.Key;
                         }
                     }
+
+                    // Добавляем ребро с данными вершинами
                     graph.AddEdge(new DotEdge<string>(from, to));
                 }
+
+                // Удаляем пару
                 newEdges.Remove(connects.FromSheet);
             }
             else
             {
+                // Добавляем новый коннектор в словарь + вершину, от которой он стартовал, ожидая соединения ее со второй вершиной
                 List<Visio.Shape> listOfConnectingNodes = new List<Visio.Shape>();
                 listOfConnectingNodes.Add(connects.ToSheet);
                 newEdges.Add(connects.FromSheet, listOfConnectingNodes);
             }
         }
 
-            public void DeleteEdge(Visio.Connects connects)
+        /// <summary>
+        /// Метод, вызывающийся при удалении ребра
+        /// </summary>
+        /// <param name="connects"></param>
+        public void DeleteEdge(Visio.Connects connects)
         {
             throw new NotImplementedException();
             if (vertices.ContainsValue(connects.FromSheet) && vertices.ContainsValue(connects.ToSheet))
