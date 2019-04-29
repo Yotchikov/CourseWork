@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Graphviz4Net.Graphs;
 using Graphviz4Net.Dot;
 using Graphviz4Net.Dot.AntlrParser;
 using Visio = Microsoft.Office.Interop.Visio;
@@ -21,6 +20,7 @@ namespace GraphLibrary
         private DotGraph<string> graph;
         private Dictionary<DotVertex<string>, Visio.Shape> vertices = new Dictionary<DotVertex<string>, Visio.Shape>();
         private bool isOriented;
+        private Dictionary<Visio.Connects, List<Visio.Shape>> newEdges = new Dictionary<Visio.Connects, List<Visio.Shape>>();
 
         /// <summary>
         /// Конструктор класса
