@@ -123,8 +123,14 @@ namespace GraphLibrary
             }
         }
 
+        public void AddEdge(Visio.Connects connects)
+        {
+
+        }
+
         public void DeleteEdge(Visio.Connects connects)
         {
+            throw new NotImplementedException();
             if (vertices.ContainsValue(connects.FromSheet) && vertices.ContainsValue(connects.ToSheet))
             {
                 for (int i = 0; i < graph.VerticesEdges.Count(); ++i)

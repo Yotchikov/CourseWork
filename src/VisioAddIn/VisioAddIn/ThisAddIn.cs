@@ -35,6 +35,20 @@ namespace VisioAddIn
 
             graphs.Add(visioPage, new VisioGraph(input));
             graphs[visioPage].PresentGraphInVisio(visioDocs, visioPage);
+
+            Application.ConnectionsDeleted += DeleteEdge;
+            Application.ActivePage.ConnectionsAdded += DeleteEdge;
+        }
+
+        private void AddEdge(Visio.Connects Connects)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DeleteEdge(Visio.Connects Connects)
+        {
+            throw new NotImplementedException();
+            graphs[Application.ActivePage].DeleteEdge(Connects);
         }
 
         /// <summary>

@@ -36,9 +36,9 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group = this.Factory.CreateRibbonGroup();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.openFileButton = this.Factory.CreateRibbonButton();
             this.exportGraphButton = this.Factory.CreateRibbonButton();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tab1.SuspendLayout();
             this.group.SuspendLayout();
@@ -56,11 +56,6 @@
             this.group.Items.Add(this.openFileButton);
             this.group.Items.Add(this.exportGraphButton);
             this.group.Name = "group";
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "Graph File";
-            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
             // 
             // openFileButton
             // 
@@ -81,6 +76,11 @@
             this.exportGraphButton.Name = "exportGraphButton";
             this.exportGraphButton.ShowImage = true;
             this.exportGraphButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.exportGraphButton_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "Graph File";
+            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
             // 
             // saveFileDialog
             // 
