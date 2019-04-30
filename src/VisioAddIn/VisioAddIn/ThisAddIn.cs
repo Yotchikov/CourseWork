@@ -46,7 +46,8 @@ namespace VisioAddIn
         /// <param name="Connects"></param>
         private void AddEdge(Visio.Connects Connects)
         {
-            graphs[Application.ActivePage].AddEdge(Connects);
+            if (graphs.ContainsKey(Application.ActivePage))
+                graphs[Application.ActivePage].AddEdge(Connects);
         }
 
         private void DeleteEdge(Visio.Connects Connects)
