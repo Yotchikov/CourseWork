@@ -37,7 +37,17 @@ namespace VisioAddIn
             graphs[visioPage].PresentGraphInVisio(visioDocs, visioPage);
 
             Application.BeforeShapeDelete += DeleteShape;
+            Application.ConnectionsDeleted += DeleteEdge;
             Application.ActivePage.ConnectionsAdded += AddEdge;
+        }
+
+        /// <summary>
+        /// Метод разрыва соединения вершин
+        /// </summary>
+        /// <param name="Connects"></param>
+        private void DeleteEdge(Visio.Connects Connects)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
