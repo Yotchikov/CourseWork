@@ -36,8 +36,17 @@ namespace VisioAddIn
             graphs.Add(visioPage, new VisioGraph(input));
             graphs[visioPage].PresentGraphInVisio(visioDocs, visioPage);
 
-            Application.ConnectionsDeleted += DeleteEdge;
+            Application.BeforeShapeDelete += DeleteShape;
             Application.ActivePage.ConnectionsAdded += AddEdge;
+        }
+
+        /// <summary>
+        /// Метод удаления фигуры
+        /// </summary>
+        /// <param name="Shape"></param>
+        private void DeleteShape(Visio.Shape Shape)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -48,12 +57,6 @@ namespace VisioAddIn
         {
             if (graphs.ContainsKey(Application.ActivePage))
                 graphs[Application.ActivePage].AddEdge(Connects);
-        }
-
-        private void DeleteEdge(Visio.Connects Connects)
-        {
-            throw new NotImplementedException();
-            graphs[Application.ActivePage].DeleteEdge(Connects);
         }
 
         /// <summary>
