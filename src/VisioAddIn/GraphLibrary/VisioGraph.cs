@@ -41,6 +41,8 @@ namespace GraphLibrary
         {
             PresentNodes(visioDocs, visioPage);
             PresentEdges(visioDocs, visioPage);
+
+            visioPage.Layout();
         }
 
         /// <summary>
@@ -122,6 +124,25 @@ namespace GraphLibrary
                 // Удаление коннектора-болванки
                 connector.Delete();
             }
+        }
+
+        public void ChangeLabel(Visio.Shape shape)
+        {
+            if (vertices.ContainsValue(shape))
+                foreach (var node in vertices)
+                    if (node.Value == shape)
+                    {
+                        foreach (var v in graph.AllVertices)
+                            if (v == node.Key)
+                            {
+                                if (v.Attributes.ContainsKey("label"))
+                                    v.Attributes["label"] = shape.Text;
+                                else
+                                    v.Attributes.Add("label", shape.Text);
+                                break;
+                            }
+                        break;
+                    }
         }
 
         /// <summary>
