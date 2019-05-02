@@ -226,8 +226,10 @@ namespace GraphLibrary
 
         public void DeleteShape(Visio.Shape shape)
         {
-            if (shape.NameU.StartsWith("Dynamic connector"))
-                throw new Exception("It is connector!");
+            if (shape.NameU.StartsWith("Dynamic connector") && vertices.ContainsValue(shape.Connects[1].ToSheet) && vertices.ContainsValue(shape.Connects[2].ToSheet))
+            {
+                throw new Exception("");
+            }
         }
 
         /// <summary>
