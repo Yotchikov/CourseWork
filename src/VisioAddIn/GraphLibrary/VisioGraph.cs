@@ -126,8 +126,13 @@ namespace GraphLibrary
             }
         }
 
+        /// <summary>
+        /// Метод, вызывающийся при изменении текста фигуры
+        /// </summary>
+        /// <param name="shape"></param>
         public void ChangeLabel(Visio.Shape shape)
         {
+            // Если изменен текст вершины
             if (vertices.ContainsValue(shape))
                 foreach (var node in vertices)
                     if (node.Value == shape)
@@ -217,6 +222,12 @@ namespace GraphLibrary
                     }
                 }
             }
+        }
+
+        public void DeleteShape(Visio.Shape shape)
+        {
+            if (shape.NameU.StartsWith("Dynamic connector"))
+                throw new Exception("It is connector!");
         }
 
         /// <summary>

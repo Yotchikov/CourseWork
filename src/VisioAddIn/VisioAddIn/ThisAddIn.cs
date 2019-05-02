@@ -42,6 +42,10 @@ namespace VisioAddIn
             Application.ActivePage.TextChanged += ChangeText;
         }
 
+        /// <summary>
+        /// Метод изменения текста вершины
+        /// </summary>
+        /// <param name="Shape"></param>
         private void ChangeText(Visio.Shape Shape)
         {
             if (graphs.ContainsKey(Application.ActivePage))
@@ -63,7 +67,8 @@ namespace VisioAddIn
         /// <param name="Shape"></param>
         private void DeleteShape(Visio.Shape Shape)
         {
-            throw new NotImplementedException(Shape.Text);
+            if (graphs.ContainsKey(Application.ActivePage))
+                graphs[Application.ActivePage].DeleteShape(Shape);
         }
 
         /// <summary>
