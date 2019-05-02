@@ -58,7 +58,8 @@ namespace VisioAddIn
         /// <param name="Connects"></param>
         private void DeleteEdge(Visio.Connects Connects)
         {
-            throw new NotImplementedException();
+            if (graphs.ContainsKey(Application.ActivePage))
+                graphs[Application.ActivePage].DeleteEdge(Connects);
         }
 
         /// <summary>

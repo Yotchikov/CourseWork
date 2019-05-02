@@ -220,20 +220,16 @@ namespace GraphLibrary
         /// <param name="connects"></param>
         public void DeleteEdge(Visio.Connects connects)
         {
-            throw new NotImplementedException();
-            if (vertices.ContainsValue(connects.FromSheet) && vertices.ContainsValue(connects.ToSheet))
+            Visio.Shape shape = connects.FromSheet;
+            if (edges.ContainsValue(shape))
             {
-                for (int i = 0; i < graph.VerticesEdges.Count(); ++i)
-                {
-                    // Ребро
-                    var edge = graph.VerticesEdges.ElementAt(i);
-
-                    if (vertices[edge.Source] == connects.FromSheet && vertices[edge.Destination] == connects.ToSheet)
+                foreach (var edge in edges)
+                    if (edge.Value == shape)
                     {
-                        graph.RemoveEdge(edge);
+                        graph.RemoveEdge(edge.Key);
+                        edges.Remove(edge.Key);
                         break;
                     }
-                }
             }
         }
 
