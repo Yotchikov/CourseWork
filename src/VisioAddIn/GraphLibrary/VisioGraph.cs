@@ -116,7 +116,7 @@ namespace GraphLibrary
 
                 // Соединение вершин при помощи данного коннектора
                 vertices[edge.Source].AutoConnect(vertices[edge.Destination], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
-                
+
                 edges.Add(edge, vertices[edge.Source].FromConnects[vertices[edge.Source].FromConnects.Count].FromSheet);
 
                 // Удаление коннектора-болванки
@@ -132,20 +132,31 @@ namespace GraphLibrary
         {
             // Если изменен текст вершины
             if (vertices.ContainsValue(shape))
+            {
                 foreach (var node in vertices)
                     if (node.Value == shape)
                     {
-                        foreach (var v in graph.AllVertices)
-                            if (v == node.Key)
-                            {
-                                if (v.Attributes.ContainsKey("label"))
-                                    v.Attributes["label"] = shape.Text;
-                                else
-                                    v.Attributes.Add("label", shape.Text);
-                                break;
-                            }
+                        if (node.Key.Attributes.ContainsKey("label"))
+                            node.Key.Attributes["label"] = shape.Text;
+                        else
+                            node.Key.Attributes.Add("label", shape.Text);
                         break;
                     }
+            }
+            else
+            // Если изменен текст ребра
+            if (edges.ContainsValue(shape))
+            {
+                foreach (var edge in edges)
+                    if (edge.Value == shape)
+                    {
+                        if (edge.Key.Attributes.ContainsKey("label"))
+                            edge.Key.Attributes["label"] = shape.Text;
+                        else
+                            edge.Key.Attributes.Add("label", shape.Text);
+                        break;
+                    }
+            }
         }
 
         /// <summary>
@@ -180,7 +191,11 @@ namespace GraphLibrary
                     }
 
                     // Добавляем ребро с данными вершинами
-                    graph.AddEdge(new DotEdge<string>(from, to));
+                    DotEdge<string> edge = new DotEdge<string>(from, to);
+                    graph.AddEdge(edge);
+
+                    // Добавляем новое ребро в список ребер
+                    edges.Add(edge, connects.FromSheet);
                 }
 
                 // Удаляем пару
@@ -222,6 +237,10 @@ namespace GraphLibrary
             }
         }
 
+        /// <summary>
+        /// Метод, вызывающийся при удалении ребра
+        /// </summary>
+        /// <param name="shape"></param>
         public void DeleteShape(Visio.Shape shape)
         {
             if (edges.ContainsValue(shape))

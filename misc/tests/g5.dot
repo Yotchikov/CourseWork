@@ -3,4 +3,6 @@ graph [];
     0 [  ];
     1 [  ];
     2 [  ];
+    1 -> 0 [ label="HELLO" ,comment="3"  ];
+    2 -> 1 [ label="2" ,comment="4"  ];
 }
