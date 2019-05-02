@@ -1,33 +1,6 @@
 digraph g { 
 graph [];
-    0 [ shape="box"  ];
-    1 [ shape="box"  ];
-    2 [ shape="box"  ];
-    3 [ shape="box"  ];
-    4 [ shape="box"  ];
-    5 [ shape="box" ,color="red" ,label="HUY"  ];
-    6 [ shape="circle"  ];
-    7 [ shape="circle"  ];
-    8 [ shape="circle"  ];
-    9 [ shape="box" ,style="dotted"  ];
-    10 [ shape="circle" ,color="cyan" ,style="filled"  ];
-    11 [ shape="circle" ,color="green"  ];
-    12 [ shape="circle"  ];
-    13 [ shape="circle"  ];
-    0 -> 7 [ label="1" ,comment="14"  ];
-    2 -> 6 [ label="2" ,comment="15"  ];
-    1 -> 10 [ label="3" ,comment="16"  ];
-    1 -> 8 [ label="4" ,comment="17"  ];
-    9 -> 2 [ label="5" ,comment="18"  ];
-    6 -> 0 [ label="6" ,style="dashed" ,comment="19"  ];
-    7 -> 1 [ label="7" ,comment="20"  ];
-    8 -> 2 [ label="8" ,comment="21"  ];
-    3 -> 12 [ label="9" ,comment="22"  ];
-    5 -> 11 [ label="10" ,comment="23"  ];
-    4 -> 9 [ label="11" ,comment="24"  ];
-    4 -> 13 [ label="12" ,comment="25"  ];
-    10 -> 5 [ label="13" ,comment="26"  ];
-    11 -> 3 [ label="14" ,comment="27"  ];
-    12 -> 4 [ label="15" ,comment="28"  ];
-    13 -> 5 [ label="16" ,comment="29"  ];
+    0 [  ];
+    1 [  ];
+    2 [  ];
 }

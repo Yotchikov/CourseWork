@@ -19,7 +19,7 @@ namespace GraphLibrary
         private GraphParser gParser = new GraphParser();
         private DotGraph<string> graph;
         private Dictionary<DotVertex<string>, Visio.Shape> vertices = new Dictionary<DotVertex<string>, Visio.Shape>();
-        private bool isOriented;
+        private Dictionary<DotEdge<string>, Visio.Shape> edges = new Dictionary<DotEdge<string>, Visio.Shape>();
         private Dictionary<Visio.Shape, List<Visio.Shape>> newEdges = new Dictionary<Visio.Shape, List<Visio.Shape>>();
 
         /// <summary>
@@ -29,7 +29,6 @@ namespace GraphLibrary
         public VisioGraph(string input)
         {
             graph = gParser.ParseGraphData(input);
-            isOriented = input.StartsWith("digraph");
         }
 
         /// <summary>
@@ -103,10 +102,7 @@ namespace GraphLibrary
                 // Фигура соединидельной линии (коннектора)
                 Visio.Shape connector = visioPage.Drop(visioConnectors.Masters.get_ItemU("Dynamic connector"), 0, 0);
                 connector.get_Cells("ConLineRouteExt").FormulaU = "2";
-                if (isOriented)
-                    connector.get_Cells("EndArrow").Formula = "=5";
-                else
-                    connector.get_Cells("EndArrow").Formula = "=0";
+                connector.get_Cells("EndArrow").Formula = "=5";
 
                 // Стили ребра
                 string label = edge.Attributes.ContainsKey("label") ? edge.Attributes["label"] : "";
@@ -120,6 +116,8 @@ namespace GraphLibrary
 
                 // Соединение вершин при помощи данного коннектора
                 vertices[edge.Source].AutoConnect(vertices[edge.Destination], Visio.VisAutoConnectDir.visAutoConnectDirDown, connector);
+                
+                edges.Add(edge, vertices[edge.Source].FromConnects[vertices[edge.Source].FromConnects.Count].FromSheet);
 
                 // Удаление коннектора-болванки
                 connector.Delete();
@@ -226,9 +224,18 @@ namespace GraphLibrary
 
         public void DeleteShape(Visio.Shape shape)
         {
-            if (shape.NameU.StartsWith("Dynamic connector") && vertices.ContainsValue(shape.Connects[1].ToSheet) && vertices.ContainsValue(shape.Connects[2].ToSheet))
+            if (edges.ContainsValue(shape))
             {
-                throw new Exception("");
+                Visio.Shape v1 = shape.Connects[1].ToSheet;
+                Visio.Shape v2 = shape.Connects[2].ToSheet;
+                if (vertices.ContainsValue(v1) && vertices.ContainsValue(v2))
+                    foreach (var edge in edges)
+                        if (edge.Value == shape)
+                        {
+                            graph.RemoveEdge(edge.Key);
+                            edges.Remove(edge.Key);
+                            break;
+                        }
             }
         }
 
