@@ -224,34 +224,72 @@ namespace GraphLibrary
             if (edges.ContainsValue(shape))
             {
                 foreach (var edge in edges)
+                {
                     if (edge.Value == shape)
                     {
                         graph.RemoveEdge(edge.Key);
                         edges.Remove(edge.Key);
                         break;
                     }
+                }
             }
         }
 
         /// <summary>
-        /// Метод, вызывающийся при удалении ребра
+        /// Метод, вызывающийся при удалении фигуры
         /// </summary>
         /// <param name="shape"></param>
         public void DeleteShape(Visio.Shape shape)
         {
+            // Если удалено ребро
             if (edges.ContainsValue(shape))
             {
                 Visio.Shape v1 = shape.Connects[1].ToSheet;
                 Visio.Shape v2 = shape.Connects[2].ToSheet;
                 if (vertices.ContainsValue(v1) && vertices.ContainsValue(v2))
+                {
                     foreach (var edge in edges)
+                    {
                         if (edge.Value == shape)
                         {
                             graph.RemoveEdge(edge.Key);
                             edges.Remove(edge.Key);
                             break;
                         }
+                    }
+                }
             }
+            else
+            // Если удалена вершина
+            if (vertices.ContainsValue(shape))
+            {
+                foreach (var node in vertices)
+                {
+                    if (node.Value == shape)
+                    {
+                        Dictionary<DotEdge<string>, Visio.Shape> edgesToDelete = new Dictionary<DotEdge<string>, Visio.Shape>();
+                        foreach (var edge in edges)
+                        {
+                            if (edge.Key.Source == node.Key || edge.Key.Destination == node.Key)
+                            {
+                                graph.RemoveEdge(edge.Key);
+                                edgesToDelete.Add(edge.Key, edge.Value);
+                            }
+                        }
+
+                        foreach (var edge in edgesToDelete)
+                        {
+                            edges.Remove(edge.Key);
+                            edge.Value.Delete();
+                        }
+
+                        graph.RemoveVertex(node.Key);
+                        vertices.Remove(node.Key);
+                        break;
+                    }
+                }
+            }
+
         }
 
         /// <summary>
