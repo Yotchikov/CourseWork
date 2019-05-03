@@ -57,13 +57,55 @@ namespace GraphLibrary
                 case "darkgoldenrod":
                     return "RGB(184, 134, 11)";
                 case "darkgreen":
-                    return "RGB(0,100,0)";
+                    return "RGB(0, 100, 0)";
                 case "darkolivegreen":
-                    return "RGB(85,107,47)";
+                    return "RGB(85, 107, 47)";
                 case "darkorange":
-                    return "RGB(255,140,0)";
+                    return "RGB(255, 140, 0)";
                 case "darkorchild":
-                    return "RGB(153,50,204)";
+                    return "RGB(153, 50, 204)";
+                case "darksalmon":
+                    return "RGB(233, 150, 122)";
+                case "darkseagreen":
+                    return "RGB(143, 188, 143)";
+                case "darkslateblue":
+                    return "RGB(72, 61, 139)";
+                case "darkslategray":
+                    return "RGB(47, 79, 79)";
+                case "darkslategrey":
+                    return "RGB(47, 79, 79)";
+                case "darkturquoise":
+                    return "RGB(0, 206, 209)";
+                case "darkviolet":
+                    return "RGB(148, 0, 211)";
+                case "deeppink":
+                    return "RGB(255, 20, 147)";
+                case "deepskyblue":
+                    return "RGB(0, 191, 255)";
+                case "dimgray":
+                    return "RGB(105, 105, 105)";
+                case "dimgrey":
+                    return "RGB(105, 105, 105)";
+                case "dodgerblue":
+                    return "RGB(30, 144, 255)";
+                case "firebrick":
+                    return "RGB(178, 34, 34)";
+                case "floralwhite":
+                    return "RGB(255, 250, 240)";
+                case "forestgreen":
+                    return "RGB(34, 139, 34)";
+                case "gainsboro":
+                    return "RGB(220, 220, 200)";
+                case "ghostwhite":
+                    return "RGB(248, 248, 255)";
+                case "gold":
+                    return "RGB(255, 215, 0)";
+                case "goldenrod":
+                    return "RGB(218, 165, 32)";
+                case "gray":
+                    return "RGB(192, 192, 192)";
+                case "grey":
+                    return "RGB(192, 192, 192)";
                 default:
                     throw new ArgumentException("Обнаружен недопустимый цвет");
             }
