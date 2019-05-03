@@ -1,7 +1,7 @@
 digraph a
 {
 0 [shape=box, color=red];
-1 [shape=box, color=blueviolet];
+1 [shape=parallelogram, color=blueviolet];
 2 [shape=box, color=chocolate];
 3 [shape=box, color=black];
 4 [shape=box, color=brown];

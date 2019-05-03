@@ -2,9 +2,9 @@ digraph g {
 graph [];
     0 [ shape="box" ,color="red"  ];
     1 [ shape="box" ,color="blueviolet"  ];
-    2 [ shape="box" ,color="chocolate"  ];
+    2 [ shape="box" ,color="black"  ];
     3 [ shape="box" ,color="brown"  ];
     0 -> 1 [ label="1" ,comment="4"  ];
-    1 -> 2 [ label="2" ,comment="5"  ];
+    2 -> 3 [ label="4" ,comment="5"  ];
     3 -> 0 [ label="5" ,comment="6"  ];
 }

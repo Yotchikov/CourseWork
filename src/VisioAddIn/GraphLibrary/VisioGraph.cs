@@ -51,10 +51,8 @@ namespace GraphLibrary
         /// <param name="visioPage">Текущая страница в Visio</param>
         private void PresentNodes(Visio.Documents visioDocs, Visio.Page visioPage)
         {
-            Visio.Document visioStencil = visioDocs.OpenEx("Basic Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
-
             // Мастер-объект базовых фигур Visio
-            Dictionary<string, Visio.Master> visioMasters = GetMasterShapes(visioStencil);
+            Dictionary<string, Visio.Master> visioMasters = GetMasterShapes(visioDocs);
 
             // Расстановка вершин графа
             for (int i = 0; i < graph.AllVertices.Count(); ++i)
@@ -267,6 +265,7 @@ namespace GraphLibrary
                 {
                     if (node.Value == shape)
                     {
+                        // Удаляем все ребра, смежные с данной вершиной
                         Dictionary<DotEdge<string>, Visio.Shape> edgesToDelete = new Dictionary<DotEdge<string>, Visio.Shape>();
                         foreach (var edge in edges)
                         {
@@ -276,13 +275,13 @@ namespace GraphLibrary
                                 edgesToDelete.Add(edge.Key, edge.Value);
                             }
                         }
-
                         foreach (var edge in edgesToDelete)
                         {
                             edges.Remove(edge.Key);
                             edge.Value.Delete();
                         }
 
+                        // Удаляем вершину
                         graph.RemoveVertex(node.Key);
                         vertices.Remove(node.Key);
                         break;
@@ -295,23 +294,27 @@ namespace GraphLibrary
         /// <summary>
         /// Процедура, сопоставляющая ключу-строке из допустимых фигур DOT мастер-фигуру Visio
         /// </summary>
-        /// <param name="visioStencil"></param>
+        /// <param name="visioDocs"></param>
         /// <returns>Словарь string-Visio.Master</returns>
-        private Dictionary<string, Visio.Master> GetMasterShapes(Visio.Document visioStencil)
+        private Dictionary<string, Visio.Master> GetMasterShapes(Visio.Documents visioDocs)
         {
+            Visio.Document visioStencil1 = visioDocs.OpenEx("Basic Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
+            Visio.Document visioStencil2 = visioDocs.OpenEx("Audit Diagram Shapes.vss", (short)Visio.VisOpenSaveArgs.visOpenDocked);
+
             Dictionary<string, Visio.Master> result = new Dictionary<string, Visio.Master>();
-            result.Add("TRIANGLE", visioStencil.Masters.get_ItemU(@"Triangle"));
-            result.Add("SQUARE", visioStencil.Masters.get_ItemU(@"Square"));
-            result.Add("PENTAGON", visioStencil.Masters.get_ItemU(@"Pentagon"));
-            result.Add("HEXAGON", visioStencil.Masters.get_ItemU(@"Hexagon"));
-            result.Add("OCTAGON", visioStencil.Masters.get_ItemU(@"Octagon"));
-            result.Add("RECTANGLE", visioStencil.Masters.get_ItemU(@"Rectangle"));
-            result.Add("RECT", visioStencil.Masters.get_ItemU(@"Rectangle"));
-            result.Add("BOX", visioStencil.Masters.get_ItemU(@"Rectangle"));
-            result.Add("CIRCLE", visioStencil.Masters.get_ItemU(@"Circle"));
-            result.Add("ELLIPSE", visioStencil.Masters.get_ItemU(@"Ellipse"));
-            result.Add("OVAL", visioStencil.Masters.get_ItemU(@"Ellipse"));
-            result.Add("DIAMOND", visioStencil.Masters.get_ItemU(@"Diamond"));
+            result.Add("TRIANGLE", visioStencil1.Masters.get_ItemU(@"Triangle"));
+            result.Add("SQUARE", visioStencil1.Masters.get_ItemU(@"Square"));
+            result.Add("PENTAGON", visioStencil1.Masters.get_ItemU(@"Pentagon"));
+            result.Add("HEXAGON", visioStencil1.Masters.get_ItemU(@"Hexagon"));
+            result.Add("OCTAGON", visioStencil1.Masters.get_ItemU(@"Octagon"));
+            result.Add("RECTANGLE", visioStencil1.Masters.get_ItemU(@"Rectangle"));
+            result.Add("RECT", visioStencil1.Masters.get_ItemU(@"Rectangle"));
+            result.Add("BOX", visioStencil1.Masters.get_ItemU(@"Rectangle"));
+            result.Add("CIRCLE", visioStencil1.Masters.get_ItemU(@"Circle"));
+            result.Add("ELLIPSE", visioStencil1.Masters.get_ItemU(@"Ellipse"));
+            result.Add("OVAL", visioStencil1.Masters.get_ItemU(@"Ellipse"));
+            result.Add("DIAMOND", visioStencil1.Masters.get_ItemU(@"Diamond"));
+            result.Add("PARALLELOGRAM", visioStencil2.Masters.get_ItemU(@"I/O"));
             return result;
         }
 
