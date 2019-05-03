@@ -1,8 +1,0 @@
-digraph g { 
-graph [];
-    0 [  ];
-    1 [  ];
-    2 [  ];
-    2 -> 1 [ label="2" ,comment="3"  ];
-    1 -> 0 [ comment="4"  ];
-}

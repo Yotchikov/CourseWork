@@ -1,0 +1,13 @@
+digraph g { 
+graph [];
+    0 [ shape="box" ,color="red"  ];
+    1 [ shape="box" ,color="blueviolet" ,label="ЗДРАВСТВУЙТЕ!!!"  ];
+    2 [ shape="box" ,color="chocolate"  ];
+    3 [ shape="box" ,color="black"  ];
+    4 [ shape="box" ,color="brown"  ];
+    0 -> 1 [ label="1" ,comment="5"  ];
+    1 -> 2 [ label="2" ,comment="6"  ];
+    3 -> 4 [ label="4" ,comment="7"  ];
+    4 -> 0 [ label="5" ,comment="8"  ];
+    2 -> 3 [ comment="9"  ];
+}

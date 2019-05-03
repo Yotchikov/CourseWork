@@ -56,6 +56,14 @@ namespace GraphLibrary
                     return "RGB(0, 255, 255)";
                 case "darkgoldenrod":
                     return "RGB(184, 134, 11)";
+                case "darkgreen":
+                    return "RGB(0,100,0)";
+                case "darkolivegreen":
+                    return "RGB(85,107,47)";
+                case "darkorange":
+                    return "RGB(255,140,0)";
+                case "darkorchild":
+                    return "RGB(153,50,204)";
                 default:
                     throw new ArgumentException("Обнаружен недопустимый цвет");
             }
