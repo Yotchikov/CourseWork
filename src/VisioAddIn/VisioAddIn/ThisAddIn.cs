@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Windows.Forms;
 using Visio = Microsoft.Office.Interop.Visio;
 using Office = Microsoft.Office.Core;
 using GraphLibrary;
@@ -49,7 +50,16 @@ namespace VisioAddIn
         private void ChangeText(Visio.Shape Shape)
         {
             if (graphs.ContainsKey(Application.ActivePage))
-                graphs[Application.ActivePage].ChangeLabel(Shape);
+            {
+                try
+                {
+                    graphs[Application.ActivePage].ChangeLabel(Shape);
+                }
+                catch (Exception exc)
+                {
+                    ErrorMessage("Во время изменения текста возникла следующая ошибка:\n" + exc.Message, "Не удалось изменить текст");
+                }
+            }
         }
 
         /// <summary>
@@ -59,7 +69,17 @@ namespace VisioAddIn
         private void DeleteEdge(Visio.Connects Connects)
         {
             if (graphs.ContainsKey(Application.ActivePage))
-                graphs[Application.ActivePage].DeleteEdge(Connects);
+            {
+                try
+                {
+                    graphs[Application.ActivePage].DeleteEdge(Connects);
+                }
+                catch (Exception exc)
+                {
+                    ErrorMessage("Во время удаления ребра возникла следующая ошибка:\n" + exc.Message, "Не удалось удалить ребро");
+                }
+
+            }
         }
 
         /// <summary>
@@ -69,7 +89,16 @@ namespace VisioAddIn
         private void DeleteShape(Visio.Shape Shape)
         {
             if (graphs.ContainsKey(Application.ActivePage))
-                graphs[Application.ActivePage].DeleteShape(Shape);
+            {
+                try
+                {
+                    graphs[Application.ActivePage].DeleteShape(Shape);
+                }
+                catch (Exception exc)
+                {
+                    ErrorMessage("Во время удаления объекта возникла следующая ошибка:\n" + exc.Message, "Не удалось удалить объект");
+                }
+            }
         }
 
         /// <summary>
@@ -79,7 +108,16 @@ namespace VisioAddIn
         private void AddEdge(Visio.Connects Connects)
         {
             if (graphs.ContainsKey(Application.ActivePage))
-                graphs[Application.ActivePage].AddEdge(Connects);
+            {
+                try
+                {
+                    graphs[Application.ActivePage].AddEdge(Connects);
+                }
+                catch (Exception exc)
+                {
+                    ErrorMessage("Во время добавления ребра возникла следующая ошибка:\n" + exc.Message, "Не удалосьдобавить ребро");
+                }
+            }
         }
 
         /// <summary>
@@ -113,6 +151,20 @@ namespace VisioAddIn
                 graphs[Application.ActivePage].ExportGraph(filePath);
             }
             else throw new ArgumentException("На данной странице не представлен граф");
+        }
+
+        /// <summary>
+        /// Метод для отображения сообщения об ошибке
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="caption"></param>
+        public void ErrorMessage(string message, string caption)
+        {
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+
+            // Отобразить окошко об ошибке
+            result = MessageBox.Show(message, caption, buttons);
         }
 
         #region Код, автоматически созданный VSTO

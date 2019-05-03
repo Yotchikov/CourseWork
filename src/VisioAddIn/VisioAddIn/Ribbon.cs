@@ -25,7 +25,7 @@ namespace VisioAddIn
                 }
                 catch (Exception exc)
                 {
-                    ErrorMessage("Во время импорта графа возникла следующая ошибка:\n\n" + exc.Message, "Не удалось отобразить граф");
+                    Globals.ThisAddIn.ErrorMessage("Во время импорта графа возникла следующая ошибка:\n" + exc.Message, "Не удалось отобразить граф");
                     Globals.ThisAddIn.RemovePageIfError();
                 }
             }
@@ -41,23 +41,9 @@ namespace VisioAddIn
                 }
                 catch (Exception exc)
                 {
-                    ErrorMessage("Во время экспорта графа возникла следующая ошибка:\n\n" + exc.Message, "Не удалось экспортировать граф");
+                    Globals.ThisAddIn.ErrorMessage("Во время экспорта графа возникла следующая ошибка:\n\n" + exc.Message, "Не удалось экспортировать граф");
                 }
             }
-        }
-
-        /// <summary>
-        /// Метод для отображения сообщения об ошибке
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="caption"></param>
-        public void ErrorMessage(string message, string caption)
-        {
-            MessageBoxButtons buttons = MessageBoxButtons.OK;
-            DialogResult result;
-
-            // Отобразить окошко об ошибке
-            result = MessageBox.Show(message, caption, buttons);
         }
     }
 }
