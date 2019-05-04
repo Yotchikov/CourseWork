@@ -1,13 +1,34 @@
 digraph a
 {
-0 [shape=box, color=red];
-1 [shape=parallelogram, color=blueviolet];
+0 [shape=circle, color=red];
+1 [shape=box, color=blueviolet];
 2 [shape=box, color=chocolate];
-3 [shape=box, color=black];
+3 [shape=box, style="filled", color=aquamarine];
 4 [shape=box, color=brown];
+5 [shape=pentagon, color=gold, style=filled];
+6 [shape=pentagon, color=darkorange, style=filled];
+7 [shape=circle, style=dashed];
+8 [shape=circle];
+9 [shape=hexagon, color=dodgerblue, style=filled];
+10 [shape=box, color=firebrick];
+11 [shape=box, color=red, style=dashed];
+12 [shape = circle, style=filled, color=darkseagreen];
+13 [shape = circle, style=filled, color=darkgoldenrod];
+14 [shape = pentagon, style=filled, color=chartreuse];
+15 [shape = circle, style=filled, color=cornsilk];
+7 -> 8;
+8 -> 9;
+10 -> 7;
+11 -> 10;
+12 -> 13;
+13 -> 14;
+14 -> 15;
+15 -> 12;
 0 -> 1 [label="1"];
-1 -> 2 [label="2"];
+1 -> 2 [label="2", style=dashed];
 2 -> 3 [label="3"];
+2 -> 5;
+5 -> 6;
 3 -> 4 [label="4"];
 4 -> 0 [label="5"];
 }
