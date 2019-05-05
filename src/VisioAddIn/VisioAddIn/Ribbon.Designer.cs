@@ -124,12 +124,14 @@
             this.selectConnectedNodeButton.Label = "Соединенные вершины";
             this.selectConnectedNodeButton.Name = "selectConnectedNodeButton";
             this.selectConnectedNodeButton.ShowImage = true;
+            this.selectConnectedNodeButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.selectConnectedNodeButton_Click);
             // 
             // selectNonConnectedNodesButton
             // 
             this.selectNonConnectedNodesButton.Label = "Несоединенные вершины";
             this.selectNonConnectedNodesButton.Name = "selectNonConnectedNodesButton";
             this.selectNonConnectedNodesButton.ShowImage = true;
+            this.selectNonConnectedNodesButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.selectNonConnectedNodesButton_Click);
             // 
             // Ribbon
             // 

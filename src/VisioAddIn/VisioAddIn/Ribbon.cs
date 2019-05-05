@@ -50,5 +50,15 @@ namespace VisioAddIn
         {
             Globals.ThisAddIn.Select(1);
         }
+
+        private void selectConnectedNodeButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.Select(2);
+        }
+
+        private void selectNonConnectedNodesButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.Select(3);
+        }
     }
 }

@@ -5,6 +5,8 @@ Young [shape=circle, color=cyan];
 Adult [shape=circle, color=cyan];
 Elder [shape=circle, color=cyan];
 Death [shape=triangle, color=red];
+Hell [shape=box];
+Heaven [shape=box];
 Birth -> Child;
 Child -> Young;
 Young -> Adult;

@@ -133,6 +133,26 @@ namespace GraphLibrary
                         window.Select(node.Value, 2);
                     }
                     break;
+                case 2:
+                    foreach (var node in vertices)
+                    {
+                        if (node.Value.ConnectedShapes(Visio.VisConnectedShapesFlags.visConnectedShapesAllNodes, "").Length != 0)
+                        {
+                            window.Select(node.Value, 2);
+                        }
+                    }
+                    break;
+                case 3:
+                    foreach (var node in vertices)
+                    {
+                        if (node.Value.ConnectedShapes(Visio.VisConnectedShapesFlags.visConnectedShapesAllNodes, "").Length == 0)
+                        {
+                            window.Select(node.Value, 2);
+                        }
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("Ключ не соответствует допустимому диапозону");
             }
         }
 
