@@ -45,7 +45,7 @@ namespace VisioAddIn
 
         public void Select(int key)
         {
-            Application.Window.Page.Select(graphs[Application.ActivePage].Select(key, Application.ActivePage), 2);
+            Application.ActiveWindow.Select(graphs[Application.ActivePage].Select(key, Application.ActivePage), 2);
         }
 
         /// <summary>
