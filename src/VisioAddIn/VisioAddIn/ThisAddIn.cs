@@ -45,7 +45,17 @@ namespace VisioAddIn
 
         public void Select(int key)
         {
-            Application.ActiveWindow.Select(graphs[Application.ActivePage].Select(key, Application.ActivePage), 2);
+            if (graphs.ContainsKey(Application.ActivePage))
+            {
+                try
+                {
+                    graphs[Application.ActivePage].Select(key, Application.ActiveWindow);
+                }
+                catch (Exception exc)
+                {
+                    ErrorMessage("Во время изменения текста возникла следующая ошибка:\n" + exc.Message, "Не удалось изменить текст");
+                }
+            }
         }
 
         /// <summary>

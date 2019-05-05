@@ -122,20 +122,18 @@ namespace GraphLibrary
             }
         }
 
-        public Visio.Shape Select(int key, Visio.Page visioPage)
+        public void Select(int key, Visio.Window window)
         {
-            List<Visio.Shape> result = new List<Visio.Shape>();
+            window.DeselectAll();
             switch (key)
             {
                 case 1:
                     foreach (var node in vertices)
                     {
-                        result.Add(node.Value);
-                        return node.Value;
+                        window.Select(node.Value, 2);
                     }
                     break;
             }
-            return new Visio.Shape();
         }
 
         /// <summary>
