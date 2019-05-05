@@ -35,27 +35,51 @@
         private void InitializeComponent()
         {
             this.tab1 = this.Factory.CreateRibbonTab();
-            this.group = this.Factory.CreateRibbonGroup();
-            this.openFileButton = this.Factory.CreateRibbonButton();
-            this.exportGraphButton = this.Factory.CreateRibbonButton();
+            this.fileGroup = this.Factory.CreateRibbonGroup();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.toolsGroup = this.Factory.CreateRibbonGroup();
+            this.openFileButton = this.Factory.CreateRibbonButton();
+            this.exportGraphButton = this.Factory.CreateRibbonButton();
+            this.selectMenu = this.Factory.CreateRibbonMenu();
+            this.selectAllNodesButton = this.Factory.CreateRibbonButton();
+            this.selectConnectedNodeButton = this.Factory.CreateRibbonButton();
+            this.selectNonConnectedNodesButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
-            this.group.SuspendLayout();
+            this.fileGroup.SuspendLayout();
+            this.toolsGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab1
             // 
             this.tab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
-            this.tab1.Groups.Add(this.group);
+            this.tab1.Groups.Add(this.fileGroup);
+            this.tab1.Groups.Add(this.toolsGroup);
             this.tab1.Label = "Импорт графа";
             this.tab1.Name = "tab1";
             // 
-            // group
+            // fileGroup
             // 
-            this.group.Items.Add(this.openFileButton);
-            this.group.Items.Add(this.exportGraphButton);
-            this.group.Name = "group";
+            this.fileGroup.Items.Add(this.openFileButton);
+            this.fileGroup.Items.Add(this.exportGraphButton);
+            this.fileGroup.Label = "Файл";
+            this.fileGroup.Name = "fileGroup";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "Graph File";
+            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "gv";
+            this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
+            // 
+            // toolsGroup
+            // 
+            this.toolsGroup.Items.Add(this.selectMenu);
+            this.toolsGroup.Label = "Инструменты";
+            this.toolsGroup.Name = "toolsGroup";
             // 
             // openFileButton
             // 
@@ -77,15 +101,34 @@
             this.exportGraphButton.ShowImage = true;
             this.exportGraphButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.exportGraphButton_Click);
             // 
-            // openFileDialog
+            // selectMenu
             // 
-            this.openFileDialog.FileName = "Graph File";
-            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
+            this.selectMenu.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.selectMenu.Image = global::VisioAddIn.Properties.Resources.Select;
+            this.selectMenu.Items.Add(this.selectAllNodesButton);
+            this.selectMenu.Items.Add(this.selectConnectedNodeButton);
+            this.selectMenu.Items.Add(this.selectNonConnectedNodesButton);
+            this.selectMenu.Label = "Выделить";
+            this.selectMenu.Name = "selectMenu";
+            this.selectMenu.ShowImage = true;
             // 
-            // saveFileDialog
+            // selectAllNodesButton
             // 
-            this.saveFileDialog.DefaultExt = "gv";
-            this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
+            this.selectAllNodesButton.Label = "Все вершины";
+            this.selectAllNodesButton.Name = "selectAllNodesButton";
+            this.selectAllNodesButton.ShowImage = true;
+            // 
+            // selectConnectedNodeButton
+            // 
+            this.selectConnectedNodeButton.Label = "Соединенные вершины";
+            this.selectConnectedNodeButton.Name = "selectConnectedNodeButton";
+            this.selectConnectedNodeButton.ShowImage = true;
+            // 
+            // selectNonConnectedNodesButton
+            // 
+            this.selectNonConnectedNodesButton.Label = "Несоединенные вершины";
+            this.selectNonConnectedNodesButton.Name = "selectNonConnectedNodesButton";
+            this.selectNonConnectedNodesButton.ShowImage = true;
             // 
             // Ribbon
             // 
@@ -95,8 +138,10 @@
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.Ribbon_Load);
             this.tab1.ResumeLayout(false);
             this.tab1.PerformLayout();
-            this.group.ResumeLayout(false);
-            this.group.PerformLayout();
+            this.fileGroup.ResumeLayout(false);
+            this.fileGroup.PerformLayout();
+            this.toolsGroup.ResumeLayout(false);
+            this.toolsGroup.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -105,10 +150,15 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup fileGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton openFileButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton exportGraphButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup toolsGroup;
+        internal Microsoft.Office.Tools.Ribbon.RibbonMenu selectMenu;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton selectAllNodesButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton selectConnectedNodeButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton selectNonConnectedNodesButton;
     }
 
     partial class ThisRibbonCollection
