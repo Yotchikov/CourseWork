@@ -45,5 +45,10 @@ namespace VisioAddIn
                 }
             }
         }
+
+        private void selectAllNodesButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.Select(1);
+        }
     }
 }

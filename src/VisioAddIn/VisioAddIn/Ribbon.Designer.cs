@@ -117,6 +117,7 @@
             this.selectAllNodesButton.Label = "Все вершины";
             this.selectAllNodesButton.Name = "selectAllNodesButton";
             this.selectAllNodesButton.ShowImage = true;
+            this.selectAllNodesButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.selectAllNodesButton_Click);
             // 
             // selectConnectedNodeButton
             // 

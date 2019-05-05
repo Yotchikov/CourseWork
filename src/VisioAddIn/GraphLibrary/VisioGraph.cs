@@ -122,6 +122,22 @@ namespace GraphLibrary
             }
         }
 
+        public Visio.Shape Select(int key, Visio.Page visioPage)
+        {
+            List<Visio.Shape> result = new List<Visio.Shape>();
+            switch (key)
+            {
+                case 1:
+                    foreach (var node in vertices)
+                    {
+                        result.Add(node.Value);
+                        return node.Value;
+                    }
+                    break;
+            }
+            return new Visio.Shape();
+        }
+
         /// <summary>
         /// Метод, вызывающийся при изменении текста фигуры
         /// </summary>

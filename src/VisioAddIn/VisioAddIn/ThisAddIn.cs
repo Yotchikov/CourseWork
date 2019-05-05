@@ -43,6 +43,11 @@ namespace VisioAddIn
             Application.ActivePage.TextChanged += ChangeText;
         }
 
+        public void Select(int key)
+        {
+            Application.Window.Page.Select(graphs[Application.ActivePage].Select(key, Application.ActivePage), 2);
+        }
+
         /// <summary>
         /// Метод изменения текста вершины
         /// </summary>
