@@ -64,6 +64,7 @@ namespace GraphLibrary
                 string shape = node.Attributes.ContainsKey("shape") ? node.Attributes["shape"] : "ELLIPSE";
                 string label = node.Attributes.ContainsKey("label") ? node.Attributes["label"] : node.Id;
                 string color = node.Attributes.ContainsKey("color") ? node.Attributes["color"] : "black";
+                string fontcolor = node.Attributes.ContainsKey("fontcolor") ? node.Attributes["fontcolor"] : "black";
                 string style = node.Attributes.ContainsKey("style") ? node.Attributes["style"] == "filled" ? "filled" : LineStyle(node.Attributes["style"].ToLower()) : "1";
 
                 // Добавление вершины на страницу Visio
@@ -71,6 +72,7 @@ namespace GraphLibrary
 
                 // Установка стилей для фигуры на странице Visio
                 vertices[node].Text = label;
+                vertices[node].get_CellsSRC((short)Visio.VisSectionIndices.visSectionCharacter, (short)Visio.VisRowIndices.visRowCharacter, (short)Visio.VisCellIndices.visCharacterColor).FormulaU = VisioColor.ColorToRgb(fontcolor.ToLower());
                 if (style == "filled")
                     vertices[node].get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowFill, (short)Visio.VisCellIndices.visFillForegnd).FormulaU = VisioColor.ColorToRgb(color.ToLower());
                 else
