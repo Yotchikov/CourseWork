@@ -25,8 +25,8 @@ namespace VisioAddIn
                 }
                 catch (Exception exc)
                 {
-                    Globals.ThisAddIn.ErrorMessage("Во время импорта графа возникла следующая ошибка:\n" + exc.Message, "Не удалось отобразить граф");
                     Globals.ThisAddIn.RemovePageIfError();
+                    Globals.ThisAddIn.ErrorMessage("Во время импорта графа возникла следующая ошибка:\n" + exc.Message, "Не удалось отобразить граф");
                 }
             }
         }

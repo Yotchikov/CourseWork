@@ -1,10 +1,10 @@
 digraph g { 
 graph [];
-    0 [ color="red" ,style="filled"  ];
-    1 [  ];
-    2 [  ];
-    3 [  ];
-    1 -> 2 [ comment="4"  ];
-    1 -> 3 [ comment="5"  ];
-    1 -> 0 [ comment="6"  ];
+    0;
+	1;
+2;
+3;
+4;
+5;
+0 -> 1;
 }

@@ -56,7 +56,7 @@
             this.tab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
             this.tab1.Groups.Add(this.fileGroup);
             this.tab1.Groups.Add(this.toolsGroup);
-            this.tab1.Label = "Импорт графа";
+            this.tab1.Label = "DOT граф";
             this.tab1.Name = "tab1";
             // 
             // fileGroup
@@ -137,7 +137,7 @@
             // 
             // invertButton
             // 
-            this.invertButton.Label = "Инвертировать";
+            this.invertButton.Label = "Инвертировать ребро";
             this.invertButton.Name = "invertButton";
             this.invertButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.invertButton_Click);
             // 

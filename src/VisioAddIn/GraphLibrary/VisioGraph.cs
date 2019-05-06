@@ -79,6 +79,10 @@ namespace GraphLibrary
 
                 // Ресайзинг
                 vertices[node].Resize(Visio.VisResizeDirection.visResizeDirNW, -0.8, Visio.VisUnitCodes.visInches);
+
+                // Чтобы не допустить пересечений
+                vertices[node].get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowMisc, (short)Visio.VisCellIndices.visLOFlags).FormulaU = "1";
+                vertices[node].get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowShapeLayout, (short)Visio.VisCellIndices.visSLOPlowCode).FormulaU = "2";
             }
         }
 
@@ -145,6 +149,10 @@ namespace GraphLibrary
                                 break;
                             }
                         }
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Допустимо только инвертирование ребер!");
                     }
                 }
             }
