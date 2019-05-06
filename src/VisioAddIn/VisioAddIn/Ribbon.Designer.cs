@@ -36,15 +36,16 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.fileGroup = this.Factory.CreateRibbonGroup();
+            this.toolsGroup = this.Factory.CreateRibbonGroup();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.toolsGroup = this.Factory.CreateRibbonGroup();
             this.openFileButton = this.Factory.CreateRibbonButton();
             this.exportGraphButton = this.Factory.CreateRibbonButton();
             this.selectMenu = this.Factory.CreateRibbonMenu();
             this.selectAllNodesButton = this.Factory.CreateRibbonButton();
             this.selectConnectedNodeButton = this.Factory.CreateRibbonButton();
             this.selectNonConnectedNodesButton = this.Factory.CreateRibbonButton();
+            this.invertButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.fileGroup.SuspendLayout();
             this.toolsGroup.SuspendLayout();
@@ -65,6 +66,13 @@
             this.fileGroup.Label = "Файл";
             this.fileGroup.Name = "fileGroup";
             // 
+            // toolsGroup
+            // 
+            this.toolsGroup.Items.Add(this.selectMenu);
+            this.toolsGroup.Items.Add(this.invertButton);
+            this.toolsGroup.Label = "Инструменты";
+            this.toolsGroup.Name = "toolsGroup";
+            // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "Graph File";
@@ -74,12 +82,6 @@
             // 
             this.saveFileDialog.DefaultExt = "gv";
             this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
-            // 
-            // toolsGroup
-            // 
-            this.toolsGroup.Items.Add(this.selectMenu);
-            this.toolsGroup.Label = "Инструменты";
-            this.toolsGroup.Name = "toolsGroup";
             // 
             // openFileButton
             // 
@@ -133,6 +135,12 @@
             this.selectNonConnectedNodesButton.ShowImage = true;
             this.selectNonConnectedNodesButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.selectNonConnectedNodesButton_Click);
             // 
+            // invertButton
+            // 
+            this.invertButton.Label = "Инвертировать";
+            this.invertButton.Name = "invertButton";
+            this.invertButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.invertButton_Click);
+            // 
             // Ribbon
             // 
             this.Name = "Ribbon";
@@ -162,6 +170,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton selectAllNodesButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton selectConnectedNodeButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton selectNonConnectedNodesButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton invertButton;
     }
 
     partial class ThisRibbonCollection

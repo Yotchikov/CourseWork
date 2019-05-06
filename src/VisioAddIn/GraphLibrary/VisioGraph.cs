@@ -122,37 +122,76 @@ namespace GraphLibrary
             }
         }
 
+        public void Invert(Visio.Window window)
+        {
+            if (window != null)
+            {
+                foreach (Visio.Shape shape in window.Selection)
+                {
+                    if (edges.ContainsValue(shape))
+                    {
+                        foreach (var edge in edges)
+                        {
+                            if (edge.Value == shape)
+                            {
+                                // Инвертируем ребро
+                                Visio.Cell beginXCell = shape.get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowXForm1D, (short)Visio.VisCellIndices.vis1DBeginX);
+                                beginXCell.GlueTo(vertices[edge.Key.Destination].get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowXFormOut, (short)Visio.VisCellIndices.visXFormPinX));
+                                Visio.Cell endXCell = shape.get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowXForm1D, (short)Visio.VisCellIndices.vis1DEndX);
+                                endXCell.GlueTo(vertices[edge.Key.Source].get_CellsSRC((short)Visio.VisSectionIndices.visSectionObject, (short)Visio.VisRowIndices.visRowXFormOut, (short)Visio.VisCellIndices.visXFormPinX));
+
+                                // Заменяем старое ребро новым инвертированным
+                                DotEdge<string> invertedEdge = new DotEdge<string>(edge.Key.Destination, edge.Key.Source, edge.Key.Attributes);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Метод выделения вершин
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="window"></param>
         public void Select(int key, Visio.Window window)
         {
-            window.DeselectAll();
-            switch (key)
+            if (window != null)
             {
-                case 1:
-                    foreach (var node in vertices)
-                    {
-                        window.Select(node.Value, 2);
-                    }
-                    break;
-                case 2:
-                    foreach (var node in vertices)
-                    {
-                        if (node.Value.ConnectedShapes(Visio.VisConnectedShapesFlags.visConnectedShapesAllNodes, "").Length != 0)
+                window.DeselectAll();
+                switch (key)
+                {
+                    // Выделить все вершины
+                    case 1:
+                        foreach (var node in vertices)
                         {
                             window.Select(node.Value, 2);
                         }
-                    }
-                    break;
-                case 3:
-                    foreach (var node in vertices)
-                    {
-                        if (node.Value.ConnectedShapes(Visio.VisConnectedShapesFlags.visConnectedShapesAllNodes, "").Length == 0)
+                        break;
+                    // Выделить все соединенные вершины
+                    case 2:
+                        foreach (var node in vertices)
                         {
-                            window.Select(node.Value, 2);
+                            if (node.Value.ConnectedShapes(Visio.VisConnectedShapesFlags.visConnectedShapesAllNodes, "").Length != 0)
+                            {
+                                window.Select(node.Value, 2);
+                            }
                         }
-                    }
-                    break;
-                default:
-                    throw new ArgumentException("Ключ не соответствует допустимому диапозону");
+                        break;
+                    // Выделить все несоединенные вершины
+                    case 3:
+                        foreach (var node in vertices)
+                        {
+                            if (node.Value.ConnectedShapes(Visio.VisConnectedShapesFlags.visConnectedShapesAllNodes, "").Length == 0)
+                            {
+                                window.Select(node.Value, 2);
+                            }
+                        }
+                        break;
+                    default:
+                        throw new ArgumentException("Ключ не соответствует допустимому диапозону");
+                }
             }
         }
 
@@ -166,28 +205,40 @@ namespace GraphLibrary
             if (vertices.ContainsValue(shape))
             {
                 foreach (var node in vertices)
+                {
                     if (node.Value == shape)
                     {
                         if (node.Key.Attributes.ContainsKey("label"))
+                        {
                             node.Key.Attributes["label"] = shape.Text;
+                        }
                         else
+                        {
                             node.Key.Attributes.Add("label", shape.Text);
+                        }
                         break;
                     }
+                }
             }
             else
             // Если изменен текст ребра
             if (edges.ContainsValue(shape))
             {
                 foreach (var edge in edges)
+                {
                     if (edge.Value == shape)
                     {
                         if (edge.Key.Attributes.ContainsKey("label"))
+                        {
                             edge.Key.Attributes["label"] = shape.Text;
+                        }
                         else
+                        {
                             edge.Key.Attributes.Add("label", shape.Text);
+                        }
                         break;
                     }
+                }
             }
         }
 

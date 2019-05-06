@@ -1,31 +1,10 @@
 digraph g { 
 graph [];
-    0 [ shape="circle" ,color="red"  ];
-    1 [ shape="box" ,color="blueviolet"  ];
-    2 [ shape="box" ,color="chocolate"  ];
-    3 [ shape="box" ,style="filled" ,color="aquamarine"  ];
-    4 [ shape="box" ,color="brown"  ];
-    5 [ shape="pentagon" ,color="gold" ,style="filled"  ];
-    6 [ shape="pentagon" ,color="darkorange" ,style="filled"  ];
-    7 [ shape="circle" ,style="dashed"  ];
-    8 [ shape="circle"  ];
-    9 [ shape="hexagon" ,color="dodgerblue" ,style="filled"  ];
-    10 [ shape="box" ,color="firebrick"  ];
-    11 [ shape="box" ,color="red" ,style="dashed"  ];
-    12 [ shape="circle" ,style="filled" ,color="darkseagreen"  ];
-    13 [ shape="circle" ,style="filled" ,color="darkgoldenrod"  ];
-    14 [ shape="circle" ,style="filled" ,color="cornsilk"  ];
-    7 -> 8 [ comment="15"  ];
-    8 -> 9 [ comment="16"  ];
-    10 -> 7 [ comment="17"  ];
-    11 -> 10 [ comment="18"  ];
-    12 -> 13 [ comment="19"  ];
-    14 -> 12 [ comment="20"  ];
-    0 -> 1 [ label="1" ,comment="21"  ];
-    1 -> 2 [ label="2" ,style="dashed" ,comment="22"  ];
-    2 -> 3 [ label="3" ,comment="23"  ];
-    2 -> 5 [ comment="24"  ];
-    5 -> 6 [ comment="25"  ];
-    3 -> 4 [ label="4" ,comment="26"  ];
-    4 -> 0 [ label="5" ,comment="27"  ];
+    0 [ color="red" ,style="filled"  ];
+    1 [  ];
+    2 [  ];
+    3 [  ];
+    1 -> 2 [ comment="4"  ];
+    1 -> 3 [ comment="5"  ];
+    1 -> 0 [ comment="6"  ];
 }

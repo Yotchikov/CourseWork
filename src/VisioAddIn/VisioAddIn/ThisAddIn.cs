@@ -43,6 +43,25 @@ namespace VisioAddIn
             Application.ActivePage.TextChanged += ChangeText;
         }
 
+        public void Invert()
+        {
+            if (graphs.ContainsKey(Application.ActivePage))
+            {
+                try
+                {
+                    graphs[Application.ActivePage].Invert(Application.ActiveWindow);
+                }
+                catch (Exception exc)
+                {
+                    ErrorMessage("Во время выделения вершин возникла следующая ошибка:\n" + exc.Message, "Не удалось выделить вершины");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Метод выделения вершин
+        /// </summary>
+        /// <param name="key"></param>
         public void Select(int key)
         {
             if (graphs.ContainsKey(Application.ActivePage))
@@ -53,7 +72,7 @@ namespace VisioAddIn
                 }
                 catch (Exception exc)
                 {
-                    ErrorMessage("Во время изменения текста возникла следующая ошибка:\n" + exc.Message, "Не удалось изменить текст");
+                    ErrorMessage("Во время выделения вершин возникла следующая ошибка:\n" + exc.Message, "Не удалось выделить вершины");
                 }
             }
         }
