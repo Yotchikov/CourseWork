@@ -1,6 +1,6 @@
 digraph TrafficLights {
-gy2 [shape=box]; yr2 [shape=box]; rg2 [shape=box]; gy1 [shape=box]; yr1 [shape=box]; rg1 [shape=box, color=red];
-green2 [shape=circle]; yellow2 [shape=circle]; red2 [shape=circle]; safe2 [shape=box, style=dotted, fontcolor=red]; safe1 [shape=circle, color=cyan, style=filled]; green1 [shape=circle, color = green]; yellow1 [shape=circle]; red1 [shape=circle];
+gy2 [shape=box, label="gy2"]; yr2 [shape=box, label="yr2"]; rg2 [shape=box, label="rg2"]; gy1 [shape=box, label="gy1"]; yr1 [shape=box, label="yr1"]; rg1 [shape=box, color=red, label="rg1"];
+green2 [shape=circle, label="green2"]; yellow2 [shape=circle, label="yellow2"]; red2 [shape=circle, label="red2"]; safe2 [shape=box, style=dotted, fontcolor=red, label="safe2"]; safe1 [shape=circle, color=cyan, style=filled, label="safe1"]; green1 [shape=circle, color = green, label="green1"]; yellow1 [shape=circle, label="yellow1"]; red1 [shape=circle, label="red1"];
 gy2->yellow2 [label="1"];
 rg2->green2 [label="2"];
 yr2->safe1 [label="3"];

@@ -1,12 +1,12 @@
 digraph Life {
-Birth [shape=box, color=green];
-Child [shape=circle, color=cyan];
-Young [shape=circle, color=cyan];
-Adult [shape=circle, color=cyan];
-Elder [shape=circle, color=cyan];
-Death [shape=triangle, color=red];
-Hell [shape=box];
-Heaven [shape=box];
+Birth [shape=box, color=green, label="Birth"];
+Child [shape=circle, color=cyan, label="Child"];
+Young [shape=circle, color=cyan, label="Young"];
+Adult [shape=circle, color=cyan, label="Adult"];
+Elder [shape=circle, color=cyan, label="Elder"];
+Death [shape=box, style=filled, color=black, fontcolor=red, label="Death"];
+Hell [shape=box, color=red, fontcolor=red];
+Heaven [shape=box, color=gold, fontcolor=gold];
 Birth -> Child;
 Child -> Young;
 Young -> Adult;

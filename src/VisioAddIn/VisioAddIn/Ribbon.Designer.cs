@@ -36,16 +36,16 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.fileGroup = this.Factory.CreateRibbonGroup();
-            this.toolsGroup = this.Factory.CreateRibbonGroup();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileButton = this.Factory.CreateRibbonButton();
             this.exportGraphButton = this.Factory.CreateRibbonButton();
+            this.toolsGroup = this.Factory.CreateRibbonGroup();
             this.selectMenu = this.Factory.CreateRibbonMenu();
             this.selectAllNodesButton = this.Factory.CreateRibbonButton();
             this.selectConnectedNodeButton = this.Factory.CreateRibbonButton();
             this.selectNonConnectedNodesButton = this.Factory.CreateRibbonButton();
             this.invertButton = this.Factory.CreateRibbonButton();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tab1.SuspendLayout();
             this.fileGroup.SuspendLayout();
             this.toolsGroup.SuspendLayout();
@@ -56,7 +56,7 @@
             this.tab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
             this.tab1.Groups.Add(this.fileGroup);
             this.tab1.Groups.Add(this.toolsGroup);
-            this.tab1.Label = "DOT граф";
+            this.tab1.Label = "DOT";
             this.tab1.Name = "tab1";
             // 
             // fileGroup
@@ -65,23 +65,6 @@
             this.fileGroup.Items.Add(this.exportGraphButton);
             this.fileGroup.Label = "Файл";
             this.fileGroup.Name = "fileGroup";
-            // 
-            // toolsGroup
-            // 
-            this.toolsGroup.Items.Add(this.selectMenu);
-            this.toolsGroup.Items.Add(this.invertButton);
-            this.toolsGroup.Label = "Инструменты";
-            this.toolsGroup.Name = "toolsGroup";
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "Graph File";
-            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
-            // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.DefaultExt = "gv";
-            this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
             // 
             // openFileButton
             // 
@@ -102,6 +85,13 @@
             this.exportGraphButton.Name = "exportGraphButton";
             this.exportGraphButton.ShowImage = true;
             this.exportGraphButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.exportGraphButton_Click);
+            // 
+            // toolsGroup
+            // 
+            this.toolsGroup.Items.Add(this.selectMenu);
+            this.toolsGroup.Items.Add(this.invertButton);
+            this.toolsGroup.Label = "Инструменты";
+            this.toolsGroup.Name = "toolsGroup";
             // 
             // selectMenu
             // 
@@ -140,6 +130,16 @@
             this.invertButton.Label = "Инвертировать ребро";
             this.invertButton.Name = "invertButton";
             this.invertButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.invertButton_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "Graph File";
+            this.openFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "gv";
+            this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
             // 
             // Ribbon
             // 
