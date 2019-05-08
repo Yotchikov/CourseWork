@@ -65,5 +65,10 @@ namespace VisioAddIn
         {
             Globals.ThisAddIn.Invert();
         }
+
+        private void layoutButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.Layout();
+        }
     }
 }

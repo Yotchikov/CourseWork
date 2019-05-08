@@ -46,6 +46,7 @@
             this.invertButton = this.Factory.CreateRibbonButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.layoutButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.fileGroup.SuspendLayout();
             this.toolsGroup.SuspendLayout();
@@ -90,6 +91,7 @@
             // 
             this.toolsGroup.Items.Add(this.selectMenu);
             this.toolsGroup.Items.Add(this.invertButton);
+            this.toolsGroup.Items.Add(this.layoutButton);
             this.toolsGroup.Label = "Инструменты";
             this.toolsGroup.Name = "toolsGroup";
             // 
@@ -141,6 +143,12 @@
             this.saveFileDialog.DefaultExt = "gv";
             this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
             // 
+            // layoutButton
+            // 
+            this.layoutButton.Label = "Планировка";
+            this.layoutButton.Name = "layoutButton";
+            this.layoutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.layoutButton_Click);
+            // 
             // Ribbon
             // 
             this.Name = "Ribbon";
@@ -171,6 +179,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton selectConnectedNodeButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton selectNonConnectedNodesButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton invertButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton layoutButton;
     }
 
     partial class ThisRibbonCollection

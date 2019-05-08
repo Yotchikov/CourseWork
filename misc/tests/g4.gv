@@ -1,0 +1,29 @@
+digraph g { 
+graph [];
+    0 [ shape="box" ,label="gy2"  ];
+    1 [ shape="box" ,label="yr2"  ];
+    2 [ shape="box" ,label="rg2"  ];
+    3 [ shape="box" ,label="gy1"  ];
+    4 [ shape="box" ,label="yr1"  ];
+    5 [ shape="box" ,color="red" ,label="rg1"  ];
+    6 [ shape="circle" ,label="green2"  ];
+    7 [ shape="circle" ,label="yellow2"  ];
+    8 [ shape="circle" ,label="red2"  ];
+    9 [ shape="box" ,style="dotted" ,fontcolor="red" ,label="safe2"  ];
+    10 [ shape="circle" ,color="cyan" ,style="filled" ,label="safe1"  ];
+    11 [ shape="circle" ,label="yellow1"  ];
+    12 [ shape="circle" ,label="red1"  ];
+    0 -> 7 [ label="1" ,comment="13"  ];
+    1 -> 10 [ label="3" ,comment="14"  ];
+    1 -> 8 [ label="4" ,comment="15"  ];
+    9 -> 2 [ label="5" ,comment="16"  ];
+    7 -> 1 [ label="7" ,comment="17"  ];
+    8 -> 2 [ label="8" ,comment="18"  ];
+    3 -> 11 [ label="9" ,comment="19"  ];
+    4 -> 9 [ label="11" ,comment="20"  ];
+    4 -> 12 [ label="12" ,comment="21"  ];
+    10 -> 5 [ label="13" ,comment="22"  ];
+    11 -> 4 [ label="15" ,comment="23"  ];
+    12 -> 5 [ label="16" ,comment="24"  ];
+    6 -> 12 [ comment="25"  ];
+}

@@ -43,6 +43,9 @@ namespace VisioAddIn
             Application.ActivePage.TextChanged += ChangeText;
         }
 
+        /// <summary>
+        /// Метод, вызывающий при попытке изменить ребро
+        /// </summary>
         public void Invert()
         {
             if (graphs.ContainsKey(Application.ActivePage))
@@ -53,11 +56,29 @@ namespace VisioAddIn
                 }
                 catch (Exception exc)
                 {
-                    ErrorMessage("Во время выделения вершин возникла следующая ошибка:\n" + exc.Message, "Не удалось выделить вершины");
+                    ErrorMessage("Во время инвертирования ребра возникла следующая ошибка:\n" + exc.Message, "Не удалось инвертировать ребро");
                 }
             }
         }
 
+        public void Layout()
+        {
+            if (graphs.ContainsKey(Application.ActivePage))
+            {
+                try
+                {
+                    Application.ActivePage.Layout();
+                }
+                catch (Exception exc)
+                {
+                    ErrorMessage("Во время планировки возникла следующая ошибка:\n" + exc.Message, "Не удалось исправить планировку");
+                }
+            }
+            else
+            {
+                ErrorMessage("На данной странице отсутствует граф!", "Не удалось исправить планировку");
+            }
+        }
         /// <summary>
         /// Метод выделения вершин
         /// </summary>

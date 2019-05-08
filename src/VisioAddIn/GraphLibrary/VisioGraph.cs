@@ -128,12 +128,18 @@ namespace GraphLibrary
             }
         }
 
+        /// <summary>
+        /// Метод инвертирования ребра
+        /// </summary>
+        /// <param name="window"></param>
         public void Invert(Visio.Window window)
         {
             if (window != null)
             {
+                // Для всех выделенных фигур
                 foreach (Visio.Shape shape in window.Selection)
                 {
+                    // Проверяем, что это ребро
                     if (edges.ContainsValue(shape))
                     {
                         foreach (var edge in edges)
