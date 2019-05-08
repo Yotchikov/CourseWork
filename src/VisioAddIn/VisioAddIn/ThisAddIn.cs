@@ -41,6 +41,26 @@ namespace VisioAddIn
             Application.ActivePage.ConnectionsDeleted += DeleteEdge;
             Application.ActivePage.ConnectionsAdded += AddEdge;
             Application.ActivePage.TextChanged += ChangeText;
+            Application.ActivePage.ShapeAdded += AddShape;
+        }
+
+        /// <summary>
+        /// Метод добавления фигуры
+        /// </summary>
+        /// <param name="Shape"></param>
+        private void AddShape(Visio.Shape Shape)
+        {
+            if (graphs.ContainsKey(Application.ActivePage))
+            {
+                try
+                {
+                    graphs[Application.ActivePage].AddNode(Shape);
+                }
+                catch (Exception exc)
+                {
+                    ErrorMessage("Во время добавления вершины возникла следующая ошибка:\n" + exc.Message, "Не удалось добавить вершину");
+                }
+            }
         }
 
         /// <summary>
@@ -61,6 +81,9 @@ namespace VisioAddIn
             }
         }
 
+        /// <summary>
+        /// Лэйаутинг
+        /// </summary>
         public void Layout()
         {
             if (graphs.ContainsKey(Application.ActivePage))

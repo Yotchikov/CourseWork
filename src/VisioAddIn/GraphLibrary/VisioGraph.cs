@@ -211,6 +211,26 @@ namespace GraphLibrary
             }
         }
 
+        public void AddNode(Visio.Shape shape)
+        {
+            if (shape.Master.NameU != "Dynamic connector")
+            {
+                if (GetDotShapes().ContainsKey(shape.Master.NameU.ToUpper()))
+                {
+                    shape.Text = shape.GetHashCode().ToString();
+                    shape.Resize(Visio.VisResizeDirection.visResizeDirNW, -0.8, Visio.VisUnitCodes.visInches);
+                    DotVertex<string> newNode = new DotVertex<string>(shape.Text);
+                    newNode.Attributes.Add("shape", GetDotShapes()[shape.Master.NameU.ToUpper()]);
+                    graph.AddVertex(newNode);
+                    vertices.Add(newNode, shape);
+                }
+                else
+                {
+                    throw new ArgumentException("Фигура не поддерживается языком DOT! Она не будет включена в список вершин графа!");
+                }
+            }
+        }
+
         /// <summary>
         /// Метод, вызывающийся при изменении текста фигуры
         /// </summary>
@@ -389,7 +409,25 @@ namespace GraphLibrary
                     }
                 }
             }
+        }
 
+        /// <summary>
+        /// Процедура, сопоставляющая ключу-строке из допустимых фигур DOT мастер-фигуру Visio
+        /// </summary>
+        /// <param name="visioDocs"></param>
+        /// <returns>Словарь string-Visio.Master</returns>
+        private Dictionary<string, string> GetDotShapes()
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            result.Add("TRIANGLE", "triangle");
+            result.Add("SQUARE", "square");
+            result.Add("HEXAGON", "hexagon");
+            result.Add("OCTAGON", "octagon");
+            result.Add("RECTANGLE", "rectangle");
+            result.Add("CIRCLE", "circle");
+            result.Add("ELLIPSE", "ellipse");
+            result.Add("DIAMOND", "diamond");
+            return result;
         }
 
         /// <summary>
