@@ -211,10 +211,16 @@ namespace GraphLibrary
             }
         }
 
+        /// <summary>
+        /// Метод, вызывающийся при добавлении вершины
+        /// </summary>
+        /// <param name="shape"></param>
         public void AddNode(Visio.Shape shape)
         {
+            // Проверяем, что это не соединительная линия
             if (shape.Master.NameU != "Dynamic connector")
             {
+                // Если новая фигура допустимой формы
                 if (GetDotShapes().ContainsKey(shape.Master.NameU.ToUpper()))
                 {
                     shape.Text = shape.GetHashCode().ToString();

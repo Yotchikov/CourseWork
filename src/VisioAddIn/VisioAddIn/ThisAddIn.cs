@@ -203,7 +203,7 @@ namespace VisioAddIn
         /// </summary>
         public void RemovePageIfError()
         {
-            graphs.Remove(Application.ActiveDocument.Pages[Application.ActiveDocument.Pages.Count]);
+            DeleteGraph(Application.ActiveDocument.Pages[Application.ActiveDocument.Pages.Count]);
             Application.ActiveDocument.Pages[Application.ActiveDocument.Pages.Count].Delete(1);
         }
 
