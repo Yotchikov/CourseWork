@@ -61,6 +61,11 @@ namespace VisioAddIn
             Globals.ThisAddIn.Select(3);
         }
 
+        private void selectEdgesButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.Select(4);
+        }
+
         private void invertButton_Click(object sender, RibbonControlEventArgs e)
         {
             Globals.ThisAddIn.Invert();

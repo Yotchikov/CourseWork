@@ -47,6 +47,7 @@
             this.layoutButton = this.Factory.CreateRibbonButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.selectEdgesButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.fileGroup.SuspendLayout();
             this.toolsGroup.SuspendLayout();
@@ -102,6 +103,7 @@
             this.selectMenu.Items.Add(this.selectAllNodesButton);
             this.selectMenu.Items.Add(this.selectConnectedNodeButton);
             this.selectMenu.Items.Add(this.selectNonConnectedNodesButton);
+            this.selectMenu.Items.Add(this.selectEdgesButton);
             this.selectMenu.Label = "Выделить";
             this.selectMenu.Name = "selectMenu";
             this.selectMenu.ShowImage = true;
@@ -149,6 +151,13 @@
             this.saveFileDialog.DefaultExt = "gv";
             this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
             // 
+            // selectEdgesButton
+            // 
+            this.selectEdgesButton.Label = "Все ребра";
+            this.selectEdgesButton.Name = "selectEdgesButton";
+            this.selectEdgesButton.ShowImage = true;
+            this.selectEdgesButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.selectEdgesButton_Click);
+            // 
             // Ribbon
             // 
             this.Name = "Ribbon";
@@ -180,6 +189,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton selectNonConnectedNodesButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton invertButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton layoutButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton selectEdgesButton;
     }
 
     partial class ThisRibbonCollection

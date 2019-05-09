@@ -205,6 +205,13 @@ namespace GraphLibrary
                             }
                         }
                         break;
+                    // Выделить все ребра
+                    case 4:
+                        foreach (var edge in edges)
+                        {
+                            window.Select(edge.Value, 2);
+                        }
+                        break;
                     default:
                         throw new ArgumentException("Ключ не соответствует допустимому диапозону");
                 }
