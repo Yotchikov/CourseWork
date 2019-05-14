@@ -68,6 +68,8 @@ namespace VisioAddIn
         /// </summary>
         public void Invert()
         {
+            graphs[Application.ActivePage].Invert(Application.ActiveWindow);
+            /*
             if (graphs.ContainsKey(Application.ActivePage))
             {
                 try
@@ -78,7 +80,7 @@ namespace VisioAddIn
                 {
                     ErrorMessage("Во время инвертирования ребра возникла следующая ошибка:\n" + exc.Message, "Не удалось инвертировать ребро");
                 }
-            }
+            }*/
         }
 
         /// <summary>
