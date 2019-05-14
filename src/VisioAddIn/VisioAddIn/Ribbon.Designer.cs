@@ -43,11 +43,11 @@
             this.selectAllNodesButton = this.Factory.CreateRibbonButton();
             this.selectConnectedNodeButton = this.Factory.CreateRibbonButton();
             this.selectNonConnectedNodesButton = this.Factory.CreateRibbonButton();
+            this.selectEdgesButton = this.Factory.CreateRibbonButton();
             this.invertButton = this.Factory.CreateRibbonButton();
             this.layoutButton = this.Factory.CreateRibbonButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.selectEdgesButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.fileGroup.SuspendLayout();
             this.toolsGroup.SuspendLayout();
@@ -129,6 +129,13 @@
             this.selectNonConnectedNodesButton.ShowImage = true;
             this.selectNonConnectedNodesButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.selectNonConnectedNodesButton_Click);
             // 
+            // selectEdgesButton
+            // 
+            this.selectEdgesButton.Label = "Все ребра";
+            this.selectEdgesButton.Name = "selectEdgesButton";
+            this.selectEdgesButton.ShowImage = true;
+            this.selectEdgesButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.selectEdgesButton_Click);
+            // 
             // invertButton
             // 
             this.invertButton.Label = "Инвертировать ребро";
@@ -150,13 +157,6 @@
             // 
             this.saveFileDialog.DefaultExt = "gv";
             this.saveFileDialog.Filter = "DOT files (*.gv;*.dot)|*.gv;*.dot";
-            // 
-            // selectEdgesButton
-            // 
-            this.selectEdgesButton.Label = "Все ребра";
-            this.selectEdgesButton.Name = "selectEdgesButton";
-            this.selectEdgesButton.ShowImage = true;
-            this.selectEdgesButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.selectEdgesButton_Click);
             // 
             // Ribbon
             // 

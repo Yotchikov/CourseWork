@@ -17,7 +17,6 @@ safe1->rg1 [label="13"];
 green1->gy1 [label="14"];
 yellow1->yr1 [label="15"];
 red1->rg1 [label="16"];
-
 overlap=false
 label="PetriNet Model TrafficLights\nExtracted from ConceptBase and layed out by Graphviz"
 fontsize=12;

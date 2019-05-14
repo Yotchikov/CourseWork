@@ -224,16 +224,23 @@ namespace GraphLibrary
         /// <param name="shape"></param>
         public void AddNode(Visio.Shape shape)
         {
-            // Проверяем, что это не соединительная линия
-            if (shape.Master.NameU != "Dynamic connector")
+            // Проверяем, что это соединительная линия
+            if (shape.Master.NameU == "Dynamic connector")
+            {
+                // Do nothing
+            }
+            else
             {
                 // Если новая фигура допустимой формы
                 if (GetDotShapes().ContainsKey(shape.Master.NameU.ToUpper()))
                 {
-                    shape.Text = shape.GetHashCode().ToString();
-                    shape.Resize(Visio.VisResizeDirection.visResizeDirNW, -0.8, Visio.VisUnitCodes.visInches);
-                    DotVertex<string> newNode = new DotVertex<string>(shape.Text);
+                    if (shape.Text == "")
+                    {
+                        shape.Text = shape.GetHashCode().ToString();
+                    }
+                    DotVertex<string> newNode = new DotVertex<string>(shape.GetHashCode().ToString());
                     newNode.Attributes.Add("shape", GetDotShapes()[shape.Master.NameU.ToUpper()]);
+                    newNode.Attributes.Add("label", shape.Text);
                     graph.AddVertex(newNode);
                     vertices.Add(newNode, shape);
                 }
